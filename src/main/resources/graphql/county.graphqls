@@ -1,0 +1,18 @@
+scalar Long
+
+type Country {
+	id: ID!
+	name: String!
+	status: Int
+}
+
+type Query {
+	findAllCountries: [Country]!
+	countCountries: Long!
+	countryById(id:ID!):Country 
+}
+
+# Root
+type Mutation {
+	createCountry(name: String!, status: Int): Country!
+}
