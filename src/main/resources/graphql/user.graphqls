@@ -1,5 +1,3 @@
-scalar Long
-
 type User {
 	id: ID!
 	status: ID!
@@ -11,7 +9,7 @@ type User {
 
 type Query {
 	findAllUsers: [User]!
-	countUsers: Long!
+	countUsers: Int!
 	userById(id:ID!):User 
 }
 

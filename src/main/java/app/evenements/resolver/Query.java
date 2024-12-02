@@ -52,9 +52,9 @@ public class Query implements GraphQLQueryResolver {
 		return authorRepository.findAll();
 	}
 	
-	public Iterable<Tutorial> findAllTutorials() {
-		return tutorialRepository.findAll();
-	}
+//	public Iterable<Tutorial> findAllTutorials() {
+//		return tutorialRepository.findAll();
+//	}
 
 	public long countUsers() {
 		return userRepository.count();

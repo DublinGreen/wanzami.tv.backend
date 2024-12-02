@@ -1,18 +1,16 @@
-scalar Long
-
 type Country {
 	id: ID!
 	name: String!
 	status: Int
 }
 
-type Query {
+extend type Query {
 	findAllCountries: [Country]!
-	countCountries: Long!
+	countCountries: Int!
 	countryById(id:ID!):Country 
 }
 
 # Root
-type Mutation {
+extend type Mutation {
 	createCountry(name: String!, status: Int): Country!
 }

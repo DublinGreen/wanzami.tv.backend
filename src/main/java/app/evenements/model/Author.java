@@ -10,6 +10,15 @@ public class Author {
 
 	@Column(name = "name", nullable = false)
 	private String name;
+	
+	@Column(name = "email", nullable = false)
+	private String email;
+	
+	@Column(name = "telephone", nullable = true)
+	private String telephone;
+	
+	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
+	private Integer status;
 
 	@Column(name = "age")
 	private Integer age;
@@ -49,6 +58,30 @@ public class Author {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", age=" + age + "]";
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 }

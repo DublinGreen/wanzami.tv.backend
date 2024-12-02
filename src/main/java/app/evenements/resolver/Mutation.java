@@ -48,15 +48,33 @@ public class Mutation implements GraphQLMutationResolver {
 		return user;
 	}
 	
-	public Author createAuthor(String name, Integer age) {
+	public Author createAuthor(String name, String email, String telephone,Integer status, Integer age) {
 		Author author = new Author();
-		author.setName(name);
+		author.setName(name); 
 		author.setAge(age);
+		author.setEmail(email);
+		author.setTelephone(telephone);
+		author.setStatus(status);
 
 		authorRepository.save(author);
 
 		return author;
 	}
+	
+	public Author softDeleteAuthorById(Long id) throws EntityNotFoundException {
+		Optional<Author> optAuthor = authorRepository.findById(id);
+
+		if (optAuthor.isPresent()) {
+			Author author = optAuthor.get();
+			author.setStatus(0);
+			
+			authorRepository.save(author);
+			return author;
+		}
+
+		throw new EntityNotFoundException("Not found Author to update!");
+	}
+
 	
 	public Country createCountry(String name, Integer status) {
 		Country country = new Country();
