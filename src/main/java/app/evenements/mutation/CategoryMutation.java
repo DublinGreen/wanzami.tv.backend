@@ -42,7 +42,7 @@ public class CategoryMutation implements GraphQLMutationResolver {
 		throw new EntityNotFoundException("Not found Author to update!");
 	}
 
-	public Category activeCategoryById(Long id) throws EntityNotFoundException {
+	public Category setActiveCategoryById(Long id) throws EntityNotFoundException {
 		Optional<Category> optCategory = categoryRepository.findById(id);
 
 		if (optCategory.isPresent()) {
