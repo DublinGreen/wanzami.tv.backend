@@ -1,4 +1,4 @@
-package app.evenements.resolver;
+package app.evenements.mutation;
 
 import java.util.Date;
 import java.util.Optional;
@@ -25,7 +25,13 @@ public class Mutation implements GraphQLMutationResolver {
 	private UserRepository userRepository;
 	private CountryRepository countryRepository;
 
-	public Mutation(AuthorRepository authorRepository, TutorialRepository tutorialRepository,UserRepository userRepository, CountryRepository countryRepository) {
+	public Mutation(
+			AuthorRepository authorRepository, 
+			TutorialRepository tutorialRepository,
+			UserRepository userRepository, 
+			CountryRepository countryRepository
+			) 
+	{
 		this.authorRepository = authorRepository;
 		this.tutorialRepository = tutorialRepository;
 		this.userRepository = userRepository;
@@ -74,8 +80,7 @@ public class Mutation implements GraphQLMutationResolver {
 
 		throw new EntityNotFoundException("Not found Author to update!");
 	}
-
-	
+		
 	public Country createCountry(String name, Integer status) {
 		Country country = new Country();
 		country.setName(name);

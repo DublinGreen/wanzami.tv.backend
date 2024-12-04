@@ -1,4 +1,4 @@
-package app.evenements.resolver;
+package app.evenements.query;
 
 import java.util.Optional;
 
@@ -30,7 +30,13 @@ public class Query implements GraphQLQueryResolver {
           .aliasedScalar(ExtendedScalars.GraphQLLong)
           .build();
 
-	public Query(AuthorRepository authorRepository, TutorialRepository tutorialRepository, UserRepository userRepository, CountryRepository countryRepository) {
+	public Query(
+			AuthorRepository authorRepository, 
+			TutorialRepository tutorialRepository, 
+			UserRepository userRepository, 
+			CountryRepository countryRepository	
+			) 
+	{
 		this.authorRepository = authorRepository;
 		this.tutorialRepository = tutorialRepository;
 		this.userRepository = userRepository;
@@ -52,6 +58,8 @@ public class Query implements GraphQLQueryResolver {
 		return authorRepository.findAll();
 	}
 	
+
+	
 //	public Iterable<Tutorial> findAllTutorials() {
 //		return tutorialRepository.findAll();
 //	}
@@ -64,9 +72,9 @@ public class Query implements GraphQLQueryResolver {
 		return authorRepository.count();
 	}
 
-	public long countTutorials() {
-		return tutorialRepository.count();
-	}
+//	public long countTutorials() {
+//		return tutorialRepository.count();
+//	}
 	
 	public long countCountries() {
 		return countryRepository.count();
