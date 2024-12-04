@@ -13,6 +13,7 @@ extend type Query {
 # Root
 extend type Mutation {
 	createCategory(name: String!, status: Int!): Category!
+	updateCategory(id: Int!, name: String!): Category!
 	softDeleteCategoryById(id: Int!): Category!
 	setActiveCategoryById(id: Int!): Category!
 }

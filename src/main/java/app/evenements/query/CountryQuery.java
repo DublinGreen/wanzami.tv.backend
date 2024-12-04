@@ -12,26 +12,24 @@ import graphql.schema.GraphQLScalarType;
 
 @Component
 public class CountryQuery implements GraphQLQueryResolver {
-	
-private CountryRepository countryRepository;
-	
-	GraphQLScalarType longScalar =
-      ExtendedScalars.newAliasedScalar("Long")
-          .aliasedScalar(ExtendedScalars.GraphQLLong)
-          .build();
+
+	private CountryRepository countryRepository;
+
+	GraphQLScalarType longScalar = ExtendedScalars.newAliasedScalar("Long").aliasedScalar(ExtendedScalars.GraphQLLong)
+			.build();
 
 	public CountryQuery(CountryRepository countryRepository) {
 		this.countryRepository = countryRepository;
 	}
-	
+
 	public Iterable<Country> findAllCountries() {
 		return countryRepository.findAll();
 	}
-	
+
 	public long countCountries() {
 		return countryRepository.count();
 	}
-	
+
 	public Optional<Country> countryById(Long id) {
 		return countryRepository.findById(id);
 	}

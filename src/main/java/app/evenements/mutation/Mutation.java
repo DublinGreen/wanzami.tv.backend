@@ -1,6 +1,5 @@
 package app.evenements.mutation;
 
-import java.util.Date;
 import java.util.Optional;
 
 //import org.springframework.security.access.annotation.Secured;
@@ -8,42 +7,16 @@ import org.springframework.stereotype.Component;
 
 import app.evenements.model.Author;
 import app.evenements.model.Tutorial;
-import app.evenements.model.User;
-import app.evenements.repository.CountryRepository;
 import app.evenements.repository.TutorialRepository;
-import app.evenements.repository.UserRepository;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
 
 @Component
 public class Mutation implements GraphQLMutationResolver {
 	private TutorialRepository tutorialRepository;
-	private UserRepository userRepository;
 
-	public Mutation(
-			TutorialRepository tutorialRepository,
-			UserRepository userRepository, 
-			CountryRepository countryRepository
-			) 
-	{
+	public Mutation(TutorialRepository tutorialRepository) {
 		this.tutorialRepository = tutorialRepository;
-		this.userRepository = userRepository;
-	}
-
-//	@Secured("ROLE_USER")
-	public User createUser(String username, String email, String password, String telephone) {
-		User user = new User();
-		user.setUsername(username);
-		user.setEmail(email);
-		user.setPassword(password);
-		user.setStatus(0);
-		user.setTelephone(telephone);
-		user.setCreated_at(new Date().toInstant());
-		user.setUpdated_at(new Date().toInstant());
-
-		userRepository.save(user);
-
-		return user;
 	}
 
 	public Tutorial createTutorial(String title, String description, Long authorId) {

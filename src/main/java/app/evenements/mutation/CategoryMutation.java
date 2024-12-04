@@ -27,6 +27,22 @@ public class CategoryMutation implements GraphQLMutationResolver {
 
 		return category;
 	}
+	
+	public Category updateCategory(Long id, String name) throws EntityNotFoundException {
+		Optional<Category> optCategory = categoryRepository.findById(id);
+
+		if (optCategory.isPresent()) {
+			Category category = optCategory.get();
+
+			if (name != null)
+				category.setName(name);
+
+			categoryRepository.save(category);
+			return category;
+		}
+
+		throw new EntityNotFoundException("Not found Tutorial to update!");
+	}
 
 	public Category softDeleteCategoryById(Long id) throws EntityNotFoundException {
 		Optional<Category> optCategory = categoryRepository.findById(id);
