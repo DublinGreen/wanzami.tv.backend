@@ -7,7 +7,6 @@ import java.util.Optional;
 import org.springframework.stereotype.Component;
 
 import app.evenements.model.Author;
-import app.evenements.model.Country;
 import app.evenements.model.Tutorial;
 import app.evenements.model.User;
 import app.evenements.repository.CountryRepository;
@@ -16,12 +15,10 @@ import app.evenements.repository.UserRepository;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
 
-
 @Component
 public class Mutation implements GraphQLMutationResolver {
 	private TutorialRepository tutorialRepository;
 	private UserRepository userRepository;
-	private CountryRepository countryRepository;
 
 	public Mutation(
 			TutorialRepository tutorialRepository,
@@ -31,7 +28,6 @@ public class Mutation implements GraphQLMutationResolver {
 	{
 		this.tutorialRepository = tutorialRepository;
 		this.userRepository = userRepository;
-		this.countryRepository = countryRepository;
 	}
 
 //	@Secured("ROLE_USER")
@@ -48,16 +44,6 @@ public class Mutation implements GraphQLMutationResolver {
 		userRepository.save(user);
 
 		return user;
-	}
-	
-	public Country createCountry(String name, Integer status) {
-		Country country = new Country();
-		country.setName(name);
-		country.setStatus(status);
-
-		countryRepository.save(country);
-
-		return country;
 	}
 
 	public Tutorial createTutorial(String title, String description, Long authorId) {
