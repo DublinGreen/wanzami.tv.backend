@@ -31,7 +31,7 @@ public class UserQuery implements GraphQLQueryResolver {
 	public long countUsers() {
 		return userRepository.count();
 	}
-		
+
 	public Optional<User> userById(Long id) {
 		return userRepository.findById(id);
 	}
