@@ -63,7 +63,8 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+//		Never want to return the password
+		return "###--Nice Try--###";
 	}
 
 	public void setPassword(String password) {
