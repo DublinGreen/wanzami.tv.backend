@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class User {
@@ -14,25 +16,25 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false)
 	private Long id;
-	
+
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
 
 	@Column(name = "username", nullable = false, unique = true, length = 200)
 	private String username;
-	
+
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
-	
+
 	@Column(name = "password", nullable = false)
 	private String password;
-	
+
 	@Column(name = "telephone", nullable = false, unique = true)
 	private String telephone;
-	
+
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
-	
+
 	@Column(name = "updated_at", nullable = true)
 	private Instant updated_at;
 
@@ -99,7 +101,11 @@ public class User {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
+
+	public User(Long userId) {
+		this.user = new User(userId);
+	}
+
 	public User() {
 	}
 

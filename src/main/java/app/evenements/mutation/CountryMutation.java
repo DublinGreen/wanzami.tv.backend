@@ -41,7 +41,7 @@ public class CountryMutation implements GraphQLMutationResolver {
 			return country;
 		}
 
-		throw new EntityNotFoundException("Not found Tutorial to update!");
+		throw new EntityNotFoundException("Not found Country to update!");
 	}
 	
 	public Country softDeleteCountryById(Long id) throws EntityNotFoundException {

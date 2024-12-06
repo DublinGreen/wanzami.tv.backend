@@ -7,42 +7,47 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+//import lombok.AllArgsConstructor;
+//import lombok.Data;
+//import lombok.RequiredArgsConstructor;
 
+//@Data
+//@AllArgsConstructor
+//@RequiredArgsConstructor
 @Entity
 public class Profile {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false)
 	private Long id;
-	
-	@Column(nullable = false)
-	private Long user_id;
-	
+
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
 
 	@Column(name = "name", nullable = false, unique = true, length = 200)
 	private String name;
-	
+
 	@Column(nullable = false, unique = false, length = 200)
 	private String avatar;
-	
+
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
-	
+
 	@Column(name = "updated_at", nullable = true)
 	private Instant updated_at;
-	
-	public Profile() {
+
+	@ManyToOne
+	@JoinColumn(name = "user", nullable = false, updatable = false)
+	private User user;
+
+	public Integer getStatus() {
+		return status;
 	}
 
-	public Profile(Long id) {
-		this.id = id;
-	}
-
-	public Profile(String name, Integer status) {
-		this.setName(name);
-		this.setStatus(status);
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	public String getName() {
@@ -53,14 +58,6 @@ public class Profile {
 		this.name = name;
 	}
 
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	public String getAvatar() {
 		return avatar;
 	}
@@ -69,12 +66,28 @@ public class Profile {
 		this.avatar = avatar;
 	}
 
-	public Long getUser_id() {
-		return user_id;
+	public Instant getCreated_at() {
+		return created_at;
 	}
 
-	public void setUser_id(Long user_id) {
-		this.user_id = user_id;
+	public void setCreated_at(Instant created_at) {
+		this.created_at = created_at;
 	}
-	
+
+	public Instant getUpdated_at() {
+		return updated_at;
+	}
+
+	public void setUpdated_at(Instant updated_at) {
+		this.updated_at = updated_at;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 }
