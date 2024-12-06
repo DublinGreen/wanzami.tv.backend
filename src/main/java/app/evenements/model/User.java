@@ -103,7 +103,7 @@ public class User {
 	}
 
 	public User(Long userId) {
-		this.user = new User(userId);
+		this.id = userId;
 	}
 
 	public User() {

@@ -39,7 +39,7 @@ public class Profile {
 	private Instant updated_at;
 
 	@ManyToOne
-	@JoinColumn(name = "user", nullable = false, updatable = false)
+	@JoinColumn(name = "user_id", nullable = false, updatable = false)
 	private User user;
 
 	public Integer getStatus() {
