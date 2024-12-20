@@ -4,13 +4,9 @@ import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
-import tv.wazami.enums.Role;
 
 @Entity
 public class User {
@@ -21,10 +17,6 @@ public class User {
 
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
-	
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
 	@Column(name = "username", nullable = false, unique = true, length = 200)
 	private String username;
@@ -112,15 +104,6 @@ public class User {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-	
-    public String getRole() {
-        return role.toString();
-    }
-
-    public User setRole(Role role) {
-        this.role = role;
-        return this;
-    }
 
 	public User(Long userId) {
 		this.id = userId;

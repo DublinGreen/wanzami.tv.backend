@@ -1,13 +1,6 @@
 package tv.wazami.enums;
 
-import org.springframework.security.core.GrantedAuthority;
-
-public enum Role implements GrantedAuthority {
+public enum Role {
     NORMAL,
     ADMIN;
-
-    @Override
-    public String getAuthority() {
-        return "ROLE_" + this.name();
-    }
 }

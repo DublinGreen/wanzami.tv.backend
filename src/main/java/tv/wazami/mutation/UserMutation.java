@@ -5,12 +5,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-//import app.evenements.service.AuthService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
 import tv.wazami.config.PasswordEncoder;
-//import tv.wazami.enums.Role;
-//import tv.wazami.model.AuthPayload;
 import tv.wazami.model.User;
 import tv.wazami.repository.UserRepository;
 
@@ -18,18 +15,15 @@ import tv.wazami.repository.UserRepository;
 public class UserMutation implements GraphQLMutationResolver {
 
 	private UserRepository userRespository;
-//	private AuthService authService;
 
 	public UserMutation(UserRepository userRespository) {
 		this.userRespository = userRespository;
 	}
 
-//	@Secured("ROLE_USER")
 	public User createUser(String username, String email, String password, String telephone) {
 		User user = new User();
 		user.setUsername(username);
 		user.setEmail(email);
-//		user.setRole(role);
 		
 		PasswordEncoder passwordEncoder = new PasswordEncoder(password);
 		user.setPassword(passwordEncoder.encode());

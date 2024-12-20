@@ -13,7 +13,8 @@
 	<artifactId>spring-boot-graphql-mysql</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-boot-graphql-mysql</name>
-	<description>Demo project for Spring Boot GraphQL server with MySQL database</description>
+	<description>wazami project for Spring Boot GraphQL server with MySQL
+		database</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -108,26 +109,7 @@
 			<artifactId>java-jwt</artifactId>
 			<version>3.10.2</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
 
-		<!-- start here -->
-		<dependency>
-			<groupId>com.graphql-java</groupId>
-			<artifactId>graphql-java-servlet</artifactId>
-			<version>4.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>mchange-commons-java</artifactId>
-			<version>0.2.11</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
@@ -135,23 +117,13 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			</dependency>
-		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>0.6.0</version>
 		</dependency>
+
 		<dependency>
-			<groupId>com.graphql-java</groupId>
-			<artifactId>graphql-java-servlet</artifactId>
-			<version>4.0.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-graphql</artifactId>
+			<version>3.4.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.graphql-java</groupId>
-			<artifactId>graphql-java-tools</artifactId>
-			<version>3.2.0</version>
-		</dependency>
-		<!-- start end -->
 
 	</dependencies>
 

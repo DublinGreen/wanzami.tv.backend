@@ -22,8 +22,6 @@ public class UserQuery implements GraphQLQueryResolver {
 		this.userRepository = userRepository;
 	}
 
-//	@Secured("ROLE_ADMIN")
-//	@PreAuthorize("hasRole('ADMIN')")
 	public Iterable<User> findAllUsers() {
 		return userRepository.findAll();
 	}
