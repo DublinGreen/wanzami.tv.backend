@@ -15,7 +15,6 @@ public class JwtService {
     }
 
     public List<Map<String, Object>> fetchAndPrintRecords(String token) {
-        // Define SQL query with a parameter placeholder
         String sql = "SELECT * FROM jwt_token WHERE jwt = '" + token + "' AND status = 1 ORDER BY id DESC LIMIT 1";
 
         // Correct use of List and Map with generics
@@ -26,12 +25,5 @@ public class JwtService {
         }
         
         return null;
-        
-//        System.out.println(records.get(0));
-//        
-//     // Loop through and print records
-//        for (Map<String, Object> record : records) {
-//            record.forEach((key, value) -> System.out.println(key + ": " + value));
-//        }
     }
 }

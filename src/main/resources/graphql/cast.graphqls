@@ -1,0 +1,13 @@
+type Cast {
+	id: ID!
+	status: Int
+	video: Int
+	age: Int
+	cast_image_url: String!
+	description: String!
+	name: String!
+}
+
+extend type Query {
+	findAllCasts: [Cast]!
+}

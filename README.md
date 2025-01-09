@@ -31,3 +31,9 @@ More Practice:
 
 > [Spring Boot: Upload Excel file data into MySQL Database](https://www.bezkoder.com/spring-boot-upload-excel-file-database/)# wanzami.tv.backend
 # wanzami.tv.backend
+
+#TODO
+Email Service
+Payment
+Video Module
+Video meta data
