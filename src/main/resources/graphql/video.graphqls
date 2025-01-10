@@ -1,0 +1,26 @@
+#scalar Upload
+
+type Video {
+	id: ID!
+	category: Category!
+	author: Author!
+	status: Int
+	name: String!
+	description: String!
+	short_description: String!
+	thumbnail: String!
+}
+
+extend type Query {
+	findAllVideos: [Video]!
+	countVideos: Int!
+	videoById(id:ID!):Video 
+}
+
+extend type Mutation {
+	createVideo(categoryId: Int!, authorId: Int!, status: Int!, name: String!, description: String!, short_description: String!, thumbnail: String!): Video!
+	updateVideo(id: Int!, categoryId: Int!, authorId: Int!, status: Int!, name: String!, description: String!, short_description: String!, thumbnail: String!): Video!
+	softDeleteVideoById(id: Int!): Video!
+	setActiveVideoById(id: Int!): Video!
+	#uploadFile(file: Upload!): String
+}

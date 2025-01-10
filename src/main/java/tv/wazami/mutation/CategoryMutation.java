@@ -1,5 +1,6 @@
 package tv.wazami.mutation;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ public class CategoryMutation implements GraphQLMutationResolver {
 		category.setName(name);
 		category.setStatus(status);
 
+		category.setCreated_at(new Date().toInstant());
 		categoryRepository.save(category);
 
 		return category;
@@ -36,6 +38,7 @@ public class CategoryMutation implements GraphQLMutationResolver {
 
 			if (name != null)
 				category.setName(name);
+				category.setUpdated_at(new Date().toInstant());
 
 			categoryRepository.save(category);
 			return category;
@@ -50,7 +53,7 @@ public class CategoryMutation implements GraphQLMutationResolver {
 		if (optCategory.isPresent()) {
 			Category category = optCategory.get();
 			category.setStatus(0);
-
+			category.setUpdated_at(new Date().toInstant());
 			categoryRepository.save(category);
 			return category;
 		}
@@ -64,7 +67,7 @@ public class CategoryMutation implements GraphQLMutationResolver {
 		if (optCategory.isPresent()) {
 			Category category = optCategory.get();
 			category.setStatus(1);
-
+			category.setUpdated_at(new Date().toInstant());
 			categoryRepository.save(category);
 			return category;
 		}

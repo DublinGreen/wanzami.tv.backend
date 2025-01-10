@@ -1,5 +1,6 @@
 package tv.wazami.mutation;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -25,6 +26,7 @@ public class AuthorMutation implements GraphQLMutationResolver {
 		author.setEmail(email);
 		author.setTelephone(telephone);
 		author.setStatus(status);
+		author.setCreated_at(new Date().toInstant());
 
 		authorRepository.save(author);
 
@@ -48,7 +50,8 @@ public class AuthorMutation implements GraphQLMutationResolver {
 			
 			if (age != 0)
 				author.setAge(age);
-
+			
+			author.setUpdated_at(new Date().toInstant());
 			authorRepository.save(author);
 			return author;
 		}
@@ -62,6 +65,7 @@ public class AuthorMutation implements GraphQLMutationResolver {
 		if (optAuthor.isPresent()) {
 			Author author = optAuthor.get();
 			author.setStatus(0);
+			author.setUpdated_at(new Date().toInstant());
 
 			authorRepository.save(author);
 			return author;
@@ -76,6 +80,7 @@ public class AuthorMutation implements GraphQLMutationResolver {
 		if (optAuthor.isPresent()) {
 			Author author = optAuthor.get();
 			author.setStatus(1);
+			author.setUpdated_at(new Date().toInstant());
 
 			authorRepository.save(author);
 			return author;
