@@ -1,0 +1,20 @@
+type Permission {
+	id: ID!
+	status: Int
+	name: String!
+	userType: String!
+}
+
+extend type Query {
+	findAllPermission: [Permission]!
+	countPermission: Int!
+	permissionById(id:ID!):Permission
+	permissionByName(name:String!):Permission
+}
+
+extend type Mutation {
+	createPermission(name: String!, userType: String!, status: Int): Permission!
+	updatePermission(id: Int!, name: String!, userType: String): Permission!
+	softDeletePermissionById(id: Int!): Permission!
+	setActivePermissionById(id: Int!): Permission!
+}

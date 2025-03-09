@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +12,7 @@ import tv.wanzami.model.Author;
 import tv.wanzami.repository.AuthorRepository;
 
 @Component
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthorMutation implements GraphQLMutationResolver {
 
 	private AuthorRepository authorRepository;

@@ -4,20 +4,19 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
-import graphql.kickstart.servlet.context.GraphQLServletContext;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import graphql.schema.DataFetchingEnvironment;
-import io.jsonwebtoken.io.IOException;
 import jakarta.persistence.EntityNotFoundException;
 import tv.wanzami.model.Author;
 import tv.wanzami.model.Category;
 import tv.wanzami.model.Video;
 import tv.wanzami.repository.VideoRepository;
-import tv.wanzami.service.FileUploadResolver;
 
 @Component
+@CrossOrigin(origins = "http://localhost:3000")
 public class VideoMutation implements GraphQLMutationResolver {
 
 	private VideoRepository videoRespository;
@@ -26,7 +25,8 @@ public class VideoMutation implements GraphQLMutationResolver {
 		this.videoRespository = videoRespository;
 	}
 
-	public Video createVideo(int categoryId, int authorId, int status, String name, String description, String short_description, String thumbnail) {
+	public Video createVideo(int categoryId, int authorId, int status, String name, String description,
+			String short_description, String thumbnail) {
 		Video video = new Video();
 		video.setCategory(new Category((long) categoryId));
 		video.setAuthor(new Author((long) authorId));
@@ -42,8 +42,8 @@ public class VideoMutation implements GraphQLMutationResolver {
 		return video;
 	}
 
-	public Video updateVideo(Long id, int categoryId, int authorId, int status, 
-			String name, String description, String short_description, String thumbnail) throws EntityNotFoundException {
+	public Video updateVideo(Long id, int categoryId, int authorId, int status, String name, String description,
+			String short_description, String thumbnail) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
 
 		if (optVideo.isPresent()) {
@@ -51,19 +51,19 @@ public class VideoMutation implements GraphQLMutationResolver {
 
 			if (categoryId != 0)
 				video.setCategory(new Category((long) categoryId));
-			
+
 			if (authorId != 0)
 				video.setAuthor(new Author((long) authorId));
-			
+
 			if (status != 0)
 				video.setStatus(status);
-			
+
 			if (name != null)
 				video.setName(name);
-			
+
 			if (description != null)
 				video.setDescription(description);
-			
+
 			if (thumbnail != null)
 				video.setThumbnail(thumbnail);
 
@@ -73,7 +73,7 @@ public class VideoMutation implements GraphQLMutationResolver {
 
 		throw new EntityNotFoundException("Not found User to update!");
 	}
-	
+
 	public Video softDeleteVideoById(Long id) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
 
@@ -104,18 +104,4 @@ public class VideoMutation implements GraphQLMutationResolver {
 		throw new EntityNotFoundException("Not found Video to update!");
 	}
 	
-	
-    public String uploadFile(DataFetchingEnvironment environment) throws IOException, java.io.IOException {
-        GraphQLServletContext context = environment.getContext();
-        MultipartFile file = (MultipartFile) context.getFileParts().get(0);
-
-        // Process the file (save it, analyze it, etc.)
-        String originalFilename = file.getOriginalFilename();
-        byte[] content = file.getBytes();
-
-        // For demo purposes, return the file name
-        return "Uploaded file: " + originalFilename;
-    }
-
-
 }

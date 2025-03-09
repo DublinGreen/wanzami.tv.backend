@@ -1,5 +1,3 @@
-#scalar Upload
-
 type Video {
 	id: ID!
 	category: Category!
@@ -22,5 +20,4 @@ extend type Mutation {
 	updateVideo(id: Int!, categoryId: Int!, authorId: Int!, status: Int!, name: String!, description: String!, short_description: String!, thumbnail: String!): Video!
 	softDeleteVideoById(id: Int!): Video!
 	setActiveVideoById(id: Int!): Video!
-	#uploadFile(file: Upload!): String
 }
