@@ -8,7 +8,6 @@ type User {
 	role: String!
 }
 
-
 type Query {
 	findAllUsers: [User]!
 	countUsers: Int!
@@ -17,7 +16,9 @@ type Query {
 
 type Mutation {
 	createUser(username: String!, email: String!, password: String!, telephone: String!, role: String): User!
-	updateUser(id: Int!, username: String!, email: String!, password: String!, telephone: String!): User!
+	login(email: String!, password: String!): String!
+	loginAdmin(email: String!, password: String!): String!
+	logout(token: String): Int!	
 	softDeleteUserById(id: Int!): User!
 	setActiveUserById(id: Int!): User!
 }
