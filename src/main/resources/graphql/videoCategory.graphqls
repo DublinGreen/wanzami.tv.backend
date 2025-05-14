@@ -1,0 +1,20 @@
+type VideoCategory {
+	id: ID!
+	video_id: Int!
+	category_id: Int!
+	status: Int!
+}
+
+extend type Query {
+	findAllVideoCategories: [VideoCategory]!
+	countVideoCategories: Int!
+	videoCategoryById(id:ID!):VideoCategory 
+}
+
+# Root
+extend type Mutation {
+	createVideoCategory(video_id: Int!, category_id: Int!, status: Int!): VideoCategory!
+	updateVideoCategory(video_id: Int!, category_id: Int!, status: Int!): VideoCategory!
+	softDeleteVideoCategoryByIdById(id: Int!): VideoCategory!
+	setActiveVideoCategoryById(id: Int!): VideoCategory!
+}

@@ -1,0 +1,5 @@
+extend type Query {
+    generatePresignedPutUrl(fileName: String!): String!
+    generatePresignedGetUrl(fileName: String!): String!
+    generatePresignedUrlsForFolder(folderPrefix: String!): [String]!
+}

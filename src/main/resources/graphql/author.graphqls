@@ -5,6 +5,7 @@ type Author {
 	telephone: String
 	status: Int
 	age: Int
+	country: Country!
 }
 
 extend type Query {
@@ -15,8 +16,8 @@ extend type Query {
 
 # Root
 extend type Mutation {
-	createAuthor(name: String!, email: String!, status: Int!, age: Int!, telephone: String): Author!
-	updateAuthor(id: Int!, name: String!, email: String!, age: Int!, telephone: String): Author!
+	createAuthor(name: String!, email: String!, status: Int!, age: Int!, telephone: String, country_id: Int!): Author!
+	updateAuthor(id: Int!, name: String!, email: String!, age: Int!, telephone: String, country_id: Int!): Author!
 	softDeleteAuthorById(id: Int!): Author!
 	setActiveAuthorById(id: Int!): Author!
 }

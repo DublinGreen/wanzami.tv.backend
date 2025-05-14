@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
 import tv.wanzami.model.Slider;
+import tv.wanzami.model.Video;
 import tv.wanzami.repository.SliderRepository;
 
 @Component
@@ -27,6 +28,7 @@ public class SliderMutation implements GraphQLMutationResolver {
 		slider.setImage_link(image_link);
 		slider.setBackground_link(background_link);
 		slider.setVideo_link(video_link);
+		slider.setVideo(new Video(video_id));
 		slider.setDuration(duration);
 		slider.setVideo_quality(video_quality);
 		slider.setCreated_at(new Date().toInstant());
@@ -55,6 +57,9 @@ public class SliderMutation implements GraphQLMutationResolver {
 			
 			if (video_link != null)
 				slider.setDescription(video_link);
+			
+			if (video_id != null)
+				slider.setVideo(new Video(video_id));
 			
 			if (duration != null)
 				slider.setDuration(duration);

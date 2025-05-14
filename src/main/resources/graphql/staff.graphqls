@@ -1,0 +1,21 @@
+type Staff {
+	id: ID!
+	status: Int
+	name: String!
+	title: String!
+	video: Video
+}
+
+extend type Query {
+	countStaffs: Int!
+	staffById(id:ID!):Staff
+	findAllStaffs: [Staff]
+}
+
+# Root
+extend type Mutation {	
+	createStaff(name: String!, title: String!, video_id: Int!): Staff!
+	updateStaff(id: Int!, name: String!, title: String!, video_id: Int!): Staff!
+	softDeleteStaffById(id: Int!): Staff!
+	setActiveStaffById(id: Int!): Staff!
+}

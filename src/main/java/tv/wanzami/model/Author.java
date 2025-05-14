@@ -13,6 +13,10 @@ public class Author {
 	@Column(name = "name", nullable = false)
 	private String name;
 	
+	@ManyToOne
+	@JoinColumn(name = "country_id", nullable = false, updatable = false)
+	private Country country;
+	
 	@Column(name = "email", nullable = false)
 	private String email;
 	
@@ -106,6 +110,14 @@ public class Author {
 
 	public void setCreated_at(Instant created_at) {
 		this.created_at = created_at;
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 
 }

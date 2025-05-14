@@ -1,6 +1,5 @@
 package tv.wanzami.query;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -12,8 +11,6 @@ import graphql.schema.GraphQLScalarType;
 import tv.wanzami.model.User;
 import tv.wanzami.repository.UserRepository;
 import tv.wanzami.service.EmailService;
-//import tv.wanzami.service.EmailService;
-import tv.wanzami.service.ZohoOAuth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -26,18 +23,15 @@ public class UserQuery implements GraphQLQueryResolver {
 	
     @Autowired
     private EmailService emailService;
-
-//    @Autowired
-//    private EmailService emailService;
-//    
-//	private boolean sendTestMail(String to, String subject, String body) throws Exception {
-//        try {
-//            emailService.sendEmail(to, subject, body);
-//            return true;
-//        }catch (Exception e) {
-//        	return false;
-//		}
-//	}
+    
+	private boolean sendTestMail(String to, String subject, String body) throws Exception {
+        try {
+            emailService.sendEmail(to, subject, body);
+            return true;
+        }catch (Exception e) {
+        	return false;
+		}
+	}
 
 	GraphQLScalarType longScalar = ExtendedScalars.newAliasedScalar("Long").aliasedScalar(ExtendedScalars.GraphQLLong)
 			.build();
@@ -47,19 +41,21 @@ public class UserQuery implements GraphQLQueryResolver {
 	}
 
 	public Iterable<User> findAllUsers() {
-		Sort sort = Sort.by(Sort.Direction.fromString("desc"), "id");
+		try {
+//			sendTestMail("greendublin007@gmail.com","testing 123","testing, please ignore");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	    Sort sort = Sort.by(Sort.Direction.fromString("desc"), "id");
 		return userRepository.findAll(sort);
 	}
-
+	
 	public Iterable<User> findAllActiveUsers() {
 		return userRepository.findAllActiveUsers();
 	}
 
-	public long countUsers() throws Exception {
-//		emailService.sendEmail("wanzanmi@gmail.com", "Test Email from Spring Boot via Zoho",
-//				"Hello! This is a test email from Spring Boot using Zoho Mail.");
-		
-		emailService.sendSignupEmail("wanzanmi@gmail.com", "Welcome to the Wanzami Family", "greenDev", "https://www.wanzami.tv/");
+	public long countUsers() {
 		return userRepository.count();
 	}
 

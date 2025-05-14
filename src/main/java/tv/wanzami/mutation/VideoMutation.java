@@ -4,19 +4,15 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.multipart.MultipartFile;
-
 import graphql.kickstart.tools.GraphQLMutationResolver;
-import graphql.schema.DataFetchingEnvironment;
 import jakarta.persistence.EntityNotFoundException;
 import tv.wanzami.model.Author;
 import tv.wanzami.model.Category;
 import tv.wanzami.model.Video;
+import tv.wanzami.model.VideoRating;
 import tv.wanzami.repository.VideoRepository;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class VideoMutation implements GraphQLMutationResolver {
 
 	private VideoRepository videoRespository;
@@ -25,11 +21,12 @@ public class VideoMutation implements GraphQLMutationResolver {
 		this.videoRespository = videoRespository;
 	}
 
-	public Video createVideo(int categoryId, int authorId, int status, String name, String description,
+	public Video createVideo(int categoryId, int authorId, int video_rating, int status, String name, String description,
 			String short_description, String thumbnail) {
 		Video video = new Video();
 		video.setCategory(new Category((long) categoryId));
 		video.setAuthor(new Author((long) authorId));
+		video.setVideoRating(new VideoRating((long) video_rating));		
 		video.setStatus(0);
 		video.setName(name);
 		video.setDescription(description);
@@ -42,7 +39,7 @@ public class VideoMutation implements GraphQLMutationResolver {
 		return video;
 	}
 
-	public Video updateVideo(Long id, int categoryId, int authorId, int status, String name, String description,
+	public Video updateVideo(Long id, int categoryId, int authorId, int video_rating,  int status, String name, String description,
 			String short_description, String thumbnail) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
 
@@ -54,6 +51,9 @@ public class VideoMutation implements GraphQLMutationResolver {
 
 			if (authorId != 0)
 				video.setAuthor(new Author((long) authorId));
+			
+			if (video_rating != 0)
+				video.setVideoRating(new VideoRating((long) video_rating));
 
 			if (status != 0)
 				video.setStatus(status);

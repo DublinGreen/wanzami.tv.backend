@@ -1,0 +1,26 @@
+type Slider {
+	id: ID!
+	status: Int
+	name: String!
+	description: String!
+	duration: String!
+	video_quality: String!
+	image_link: String!
+	background_link: String!
+	video_link: String!
+	video: Video
+}
+
+extend type Query {
+	countSlider: Int!
+	sliderById(id:ID!):Slider
+	findAllSliders: [Slider]
+}
+
+# Root
+extend type Mutation {	
+	createSlider(name: String!, description: String!, image_link: String!, background_link: String!, video_link: String!, duration: String!, video_quality: String!, video_id: Int!): Slider!
+	updateSlider(id: Int!, name: String!, description: String!, image_link: String!, background_link: String!, video_link: String!, duration: String!, video_quality: String!, video_id: Int!): Slider!
+	softDeleteSliderById(id: Int!): Slider!
+	setActiveSliderById(id: Int!): Slider!
+}

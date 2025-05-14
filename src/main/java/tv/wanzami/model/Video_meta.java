@@ -24,6 +24,12 @@ public class Video_meta {
 	@Column(name = "name", nullable = false, unique = true, length = 200)
 	private String name;
 	
+	@Column(name = "video_length", nullable = false, length = 200)
+	private String video_length;
+	
+	@Column(name = "video_quanlity", nullable = false, length = 200)
+	private String video_quanlity;
+	
 	@Column(nullable = false, unique = true, length = 200)
 	private String video_url;
 	
@@ -68,6 +74,22 @@ public class Video_meta {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getVideo_length() {
+		return video_length;
+	}
+
+	public void setVideo_length(String video_length) {
+		this.video_length = video_length;
+	}
+
+	public String getVideo_quanlity() {
+		return video_quanlity;
+	}
+
+	public void setVideo_quanlity(String video_quanlity) {
+		this.video_quanlity = video_quanlity;
 	}
 	
 }
