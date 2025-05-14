@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"tv.wazami","c":"ApplicationEntry","l":"ApplicationEntry()","u":"%3Cinit%3E()"},{"p":"tv.wazami","c":"ApplicationEntry","l":"extendedScalarLong()"},{"p":"tv.wazami","c":"ApplicationEntry","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
