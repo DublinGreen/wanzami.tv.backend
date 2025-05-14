@@ -1,0 +1,20 @@
+type WishList {
+	id: ID!
+	status: Int
+	video: Video!
+	user: User!
+}
+
+extend type Query {
+	countWishList: Int!
+	wishListById(id:ID!):WishList
+	findAllWishLists: [WishList]
+}
+
+# Root
+extend type Mutation {
+	createWishList(video_id: Int!, user_id: Int!): WishList!
+	updateWishList(id: Int!, video_id: Int!, user_id: Int!): WishList!
+	softDeleteWishListById(id: Int!): WishList!
+	setActiveWishListById(id: Int!): WishList!
+}

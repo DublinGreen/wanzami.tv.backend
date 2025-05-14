@@ -3,6 +3,7 @@ package tv.wanzami.mutation;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +12,7 @@ import tv.wanzami.model.User;
 import tv.wanzami.repository.ProfileRepository;
 
 @Component
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProfileMutation implements GraphQLMutationResolver {
 
 	private ProfileRepository profileRepository;

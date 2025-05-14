@@ -4,13 +4,16 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
 import tv.wanzami.model.Author;
+import tv.wanzami.model.Country;
 import tv.wanzami.repository.AuthorRepository;
 
 @Component
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthorMutation implements GraphQLMutationResolver {
 
 	private AuthorRepository authorRepository;
@@ -19,13 +22,14 @@ public class AuthorMutation implements GraphQLMutationResolver {
 		this.authorRepository = authorRepository;
 	}
 
-	public Author createAuthor(String name, String email,Integer status, Integer age, String telephone) {
+	public Author createAuthor(String name, String email,Integer status, Integer age, String telephone, Long country_id) {
 		Author author = new Author();
 		author.setName(name); 
 		author.setAge(age);
 		author.setEmail(email);
 		author.setTelephone(telephone);
 		author.setStatus(status);
+		author.setCountry(new Country(country_id));
 		author.setCreated_at(new Date().toInstant());
 
 		authorRepository.save(author);
@@ -33,7 +37,7 @@ public class AuthorMutation implements GraphQLMutationResolver {
 		return author;
 	}
 
-	public Author updateAuthor(Long id, String name, String email, int age, String telephone) throws EntityNotFoundException {
+	public Author updateAuthor(Long id, String name, String email, int age, String telephone, Long country_id) throws EntityNotFoundException {
 		Optional<Author> optAuthor = authorRepository.findById(id);
 
 		if (optAuthor.isPresent()) {
@@ -50,6 +54,11 @@ public class AuthorMutation implements GraphQLMutationResolver {
 			
 			if (age != 0)
 				author.setAge(age);
+			
+			if (country_id != 0)
+				author.setCountry(new Country(country_id));
+			
+
 			
 			author.setUpdated_at(new Date().toInstant());
 			authorRepository.save(author);

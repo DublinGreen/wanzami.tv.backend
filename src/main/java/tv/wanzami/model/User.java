@@ -4,10 +4,16 @@ import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import tv.wanzami.enums.Role;
 
+/**
+ * User Model
+ */
 @Entity
 public class User {
 	@Id
@@ -18,8 +24,11 @@ public class User {
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
 
-	@Column(name = "username", nullable = false, unique = true, length = 200)
-	private String username;
+	@Column(name = "first_name", nullable = false, length = 200)
+	private String firstName;
+	
+	@Column(name = "last_name", nullable = false, length = 200)
+	private String lastName;
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
@@ -29,6 +38,9 @@ public class User {
 
 	@Column(name = "telephone", nullable = false, unique = true)
 	private String telephone;
+	
+	@Enumerated(EnumType.STRING)
+    private Role role;
 
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
@@ -42,14 +54,6 @@ public class User {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getEmail() {
@@ -112,12 +116,37 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String email, String passoword, String telephone) {
-		this.username = username;
+	public User(String firstName, String lastName, String email, String passoword, String telephone) {
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.status = 0;
 		this.email = email;
 		this.password = passoword;
 		this.telephone = telephone;
+	}
+
+	public String getRole() {
+		return role.toString();
+	}
+
+	public void setRole(String role) {
+		this.role = Role.valueOf(role);
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 }

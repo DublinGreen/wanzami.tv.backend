@@ -1,21 +1,25 @@
 type User {
 	id: ID!
 	status: ID!
-	username: String!
+	firstName: String!
+	lastName: String!
 	email: String!
 	telephone: String!
 	password: String
+	role: String!
 }
 
 
 type Query {
 	findAllUsers: [User]!
+	findAllActiveUsers: [User]!
 	countUsers: Int!
 	userById(id:ID!):User 
 }
 
 type Mutation {
-	createUser(username: String!, email: String!, password: String!, telephone: String!): User!
+	createUser(firstName: String!, lastName: String!, email: String!, password: String!, telephone: String!, role: String): User!
+	updateUser(id: Int!, firstName: String!, lastName: String!, email: String!, telephone: String!,password: String): User!
 	softDeleteUserById(id: Int!): User!
 	setActiveUserById(id: Int!): User!
 }

@@ -25,6 +25,14 @@ public class Video {
 	@OneToOne
 	@JoinColumn(name = "author_id", nullable = false, updatable = false)
 	private Author author;
+	
+	@OneToOne
+	@JoinColumn(name = "videoRating_id", nullable = false, updatable = false)
+	private VideoRating videoRating;
+	
+	@OneToOne
+	@JoinColumn(name = "videoCountryRestriction_id", nullable = true, updatable = false)
+	private VideoCountryRestriction videoCountryRestriction;
 		
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
@@ -32,14 +40,20 @@ public class Video {
 	@Column(name = "name", nullable = false, unique = true, length = 200)
 	private String name;
 	
-	@Column(name = "short_description", nullable = false, unique = false, length = 200)
+	@Column(name = "short_description", nullable = false, columnDefinition = "TEXT")
 	private String short_description;
 	
-	@Column(name = "description", nullable = false, unique = false, length = 200)
+	@Column(name = "description", nullable = false, columnDefinition = "TEXT")
 	private String description;
 	
 	@Column(nullable = false, unique = false, length = 200)
 	private String thumbnail;
+	
+	@Column(nullable = false, unique = false, length = 200)
+	private String banner;
+	
+	@Column(nullable = false, unique = false, length = 200)
+	private String reviews_rating;
 	
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
@@ -130,5 +144,37 @@ public class Video {
 	public void setShort_description(String short_description) {
 		this.short_description = short_description;
 	}
-	
+
+	public String getBanner() {
+		return banner;
+	}
+
+	public void setBanner(String banner) {
+		this.banner = banner;
+	}
+
+	public String getReviews_rating() {
+		return reviews_rating;
+	}
+
+	public void setReviews_rating(String reviews_rating) {
+		this.reviews_rating = reviews_rating;
+	}
+
+	public VideoRating getVideoRating() {
+		return videoRating;
+	}
+
+	public void setVideoRating(VideoRating videoRating) {
+		this.videoRating = videoRating;
+	}
+
+	public VideoCountryRestriction getVideoCountryRestriction() {
+		return videoCountryRestriction;
+	}
+
+	public void setVideoCountryRestriction(VideoCountryRestriction videoCountryRestriction) {
+		this.videoCountryRestriction = videoCountryRestriction;
+	}
+
 }

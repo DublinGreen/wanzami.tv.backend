@@ -1,14 +1,18 @@
 package tv.wanzami;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Application Entry class
  */
-@ComponentScan(basePackages = "tv.wazami")
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan(basePackages = "tv.wanzami")
 @SpringBootApplication
 public class ApplicationEntry {
 	

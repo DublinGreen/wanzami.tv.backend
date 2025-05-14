@@ -1,0 +1,20 @@
+type VideoCast {
+	id: ID!
+	status: Int
+	video_id: Int!
+	cast: Cast
+}
+
+extend type Query {
+	countVideoCasts: Int!
+	videoCastById(id:ID!):VideoCast
+	findAllVideoCasts: [VideoCast]
+}
+
+# Root
+extend type Mutation {
+	createVideoCast(video_id: Int!, cast_id: Int!): VideoCast!
+	updateVideoCast(id: Int!, video_id: Int!, cast_id: Int!): VideoCast!
+	softDeleteVideoCastById(id: Int!): VideoCast!
+	setActiveVideoCastById(id: Int!): VideoCast!
+}

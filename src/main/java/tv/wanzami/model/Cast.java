@@ -9,25 +9,18 @@ public class Cast {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@ManyToOne
-	@JoinColumn(name = "video_id", nullable = false, updatable = false)
-	private Video video;
-	
+		
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
 
 	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "description", nullable = false)
-	private String description;
-	
+	/**
+	 * cast_image_url should be 150px x 150px
+	 */
 	@Column(name = "cast_image_url", nullable = false)
 	private String cast_image_url;
-
-	@Column(name = "age")
-	private Integer age;
 
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
@@ -42,9 +35,10 @@ public class Cast {
 		this.id = id;
 	}
 
-	public Cast(String name, Integer age) {
+	public Cast(String name, String cast_image_url) {
 		this.name = name;
-		this.age = age;
+		this.status = 0;
+		this.cast_image_url = cast_image_url;
 	}
 
 	public Long getId() {
@@ -59,19 +53,6 @@ public class Cast {
 		this.name = name;
 	}
 
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", age=" + age + "]";
-	}
-	
 	public Instant getUpdated_at() {
 		return updated_at;
 	}
@@ -96,14 +77,6 @@ public class Cast {
 		this.status = status;
 	}
 
-	public Video getVideo() {
-		return video;
-	}
-
-	public void setVideo(Video video) {
-		this.video = video;
-	}
-
 	public String getCast_image_url() {
 		return cast_image_url;
 	}
@@ -111,13 +84,4 @@ public class Cast {
 	public void setCast_image_url(String cast_image_url) {
 		this.cast_image_url = cast_image_url;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 }

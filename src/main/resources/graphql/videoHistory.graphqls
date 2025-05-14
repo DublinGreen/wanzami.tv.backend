@@ -1,0 +1,21 @@
+type VideoHistory {
+	id: ID!
+	finished_film: Int
+	video: Video!
+	user: User!
+	rating: Int!
+	film_duration_watched: String!
+}
+
+extend type Query {
+	countVideoHistory: Int!
+	videoHistoryById(id:ID!):VideoHistory
+}
+
+# Root
+extend type Mutation {	
+	createVideoHistory(video_id: Int!, user_id: Int!, rating: Int!, film_duration_watched: String!): VideoHistory!	
+	updateVideoHistory(id: Int!, video_id: Int!, user_id: Int!, rating: Int!, film_duration_watched: String!): VideoHistory!
+	markFilmAsFinished(id: Int!): VideoHistory!
+	markFilmAsUnfinished(id: Int!): VideoHistory!
+}

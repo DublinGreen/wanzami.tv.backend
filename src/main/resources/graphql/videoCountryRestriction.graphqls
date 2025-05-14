@@ -1,0 +1,22 @@
+type VideoCountryRestriction {
+	id: ID!
+	note: String!
+	status: Int
+	video: Video
+	country: Country
+}
+
+extend type Query {
+	findAllVideoCountryRestrictions: [VideoCountryRestriction]!
+	countVideoCountryRestrictions: Int!
+	videoCountryRestrictionById(id:ID!):VideoCountryRestriction
+	videoCountryRestrictionByVideoId(videoId:ID!): [VideoCountryRestriction]
+}
+
+# Root
+extend type Mutation {
+	createVideoCountryRestriction(note: String!, video_id: Int, country_id: Int): VideoCountryRestriction!
+	updateVideoCountryRestriction(id: Int!, note: String!, video_id: Int, country_id: Int): VideoCountryRestriction!
+	softDeleteVideoCountryRestrictionById(id: Int!): VideoCountryRestriction!
+	setActiveVideoCountryRestrictionById(id: Int!): VideoCountryRestriction!
+}

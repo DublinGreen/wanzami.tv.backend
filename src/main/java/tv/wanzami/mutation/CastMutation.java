@@ -1,13 +1,12 @@
 package tv.wanzami.mutation;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
-
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
 import tv.wanzami.model.Cast;
-import tv.wanzami.model.Video;
 import tv.wanzami.repository.CastRepository;
 
 @Component
@@ -19,20 +18,18 @@ public class CastMutation implements GraphQLMutationResolver {
 		this.castRepository = castRepository;
 	}
 	
-	public Cast createCast(String name, int status,Long video, int age, String cast_image_url, String description) {
+	public Cast createCast(String name, String cast_image_url) {
 		Cast cast = new Cast();
 		cast.setName(name);
-		cast.setStatus(status);
-		cast.setVideo(new Video(video));		
-		cast.setAge(age);
+		cast.setStatus(0);		
 		cast.setCast_image_url(cast_image_url);
-		cast.setDescription(description);
+		cast.setCreated_at(new Date().toInstant());
 		castRepository.save(cast);
 
 		return cast;
 	}
 	
-	public Cast updateCast(Long id, String name, int status,int video, int age, String cast_image_url, String description) throws EntityNotFoundException {
+	public Cast updateCast(Long id, String name, String cast_image_url) throws EntityNotFoundException {
 		Optional<Cast> optCast = castRepository.findById(id);
 
 		if (optCast.isPresent()) {
@@ -41,17 +38,7 @@ public class CastMutation implements GraphQLMutationResolver {
 			if (name != null)
 				cast.setName(name);
 			
-			if (video != 0)
-				cast.setVideo(new Video((long) video));		
-			
-			if (age != 0)
-				cast.setAge(age);
-			
-			if (cast_image_url != null)
-				cast.setCast_image_url(cast_image_url);
-			
-			if (description != null)
-				cast.setDescription(description);
+			cast.setUpdated_at(new Date().toInstant());
 
 			castRepository.save(cast);
 			return cast;
@@ -66,6 +53,7 @@ public class CastMutation implements GraphQLMutationResolver {
 		if (optCast.isPresent()) {
 			Cast cast = optCast.get();
 			cast.setStatus(0);
+			cast.setUpdated_at(new Date().toInstant());
 
 			castRepository.save(cast);
 			return cast;
@@ -80,6 +68,7 @@ public class CastMutation implements GraphQLMutationResolver {
 		if (optCast.isPresent()) {
 			Cast cast = optCast.get();
 			cast.setStatus(1);
+			cast.setUpdated_at(new Date().toInstant());
 
 			castRepository.save(cast);
 			return cast;
