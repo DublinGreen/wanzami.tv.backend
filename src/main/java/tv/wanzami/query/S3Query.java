@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -16,6 +17,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
+import tv.wanzami.config.AwsCredentialsConfig;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -24,21 +26,27 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class S3Query implements GraphQLQueryResolver {
 
-	private final String bucketName = "wanzami.tv.bucket";
+    @Value("${aws.bucket}")
+    private String bucketName;
 
+    private final AwsCredentialsConfig awsCredentialsConfig;
+
+    public S3Query(AwsCredentialsConfig awsCredentialsConfig) {
+        this.awsCredentialsConfig = awsCredentialsConfig;
+    }
+    
     private S3Presigner getPresigner() {
         return S3Presigner.builder()
                 .region(Region.EU_NORTH_1) // Change to your AWS region
 //                .credentialsProvider(ProfileCredentialsProvider.create())
 //                .credentialsProvider(DefaultCredentialsProvider.create())
 //                .credentialsProvider(StaticCredentialsProvider.create(
-//                        AwsBasicCredentials.create("AKIA45Y2R2BSO5W52OM5", "EWxCDW4p6pkcFbAUBhWYXE+ycQfJrxFM++dBo333")
+//                        AwsBasicCredentials.create(awsCredentialsConfig.getAccessKeyId(), awsCredentialsConfig.getSecretAccessKey())
 //                    ))
                 .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create("AKIA45Y2R2BSITSOTVVO", "gIpWg6S3En23KTIBeWeOQO8Dtt3AieLwZLfZFfmi")
+                        AwsBasicCredentials.create(awsCredentialsConfig.getAccessKeyId(), awsCredentialsConfig.getSecretAccessKey())
                     ))// READ ONLY ACCESS
                 .build();
     }
@@ -88,10 +96,10 @@ public class S3Query implements GraphQLQueryResolver {
                   .credentialsProvider(ProfileCredentialsProvider.create())
                   .credentialsProvider(DefaultCredentialsProvider.create())
                   .credentialsProvider(StaticCredentialsProvider.create(
-                          AwsBasicCredentials.create("AKIA45Y2R2BSITSOTVVO", "gIpWg6S3En23KTIBeWeOQO8Dtt3AieLwZLfZFfmi")
+                          AwsBasicCredentials.create(awsCredentialsConfig.getAccessKeyId(), awsCredentialsConfig.getSecretAccessKey())
                       ))
 //                  .credentialsProvider(StaticCredentialsProvider.create(
-//                          AwsBasicCredentials.create("AKIA45Y2R2BSITSOTVVO", "gIpWg6S3En23KTIBeWeOQO8Dtt3AieLwZLfZFfmi")
+//                          AwsBasicCredentials.create(awsCredentialsConfig.getAccessKeyId(), awsCredentialsConfig.getSecretAccessKey())
 //                      ))// READ ONLY ACCESS
                   .build();
 
