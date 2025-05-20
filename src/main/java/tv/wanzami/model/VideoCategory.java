@@ -34,7 +34,7 @@ public class VideoCategory {
 	}
 
 	public VideoCategory(Long id) {
-		this.id = id;
+		this.setId(id);
 	}
 
 	public VideoCategory(Integer video_id, Integer category_id, Integer status) {
@@ -82,5 +82,13 @@ public class VideoCategory {
 
 	public void setCreated_at(Instant created_at) {
 		this.created_at = created_at;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

@@ -8,18 +8,26 @@ type Video {
 	description: String!
 	short_description: String!
 	thumbnail: String!
+	video_short_url: String!
 	banner: String!
+	reviews_rating: String!
+	videoMeta: VideoMeta
 }
 
 extend type Query {
 	findAllVideos: [Video]!
+	findAllVideoByRestrictedCountry(country: String!): [Video]!
+	searchVideoByRestrictedCountry(country: String!, videoName: String!): [Video]!
+	findVideoByRestrictedCountryAndCategory(country: String!, category: Int!): [Video]!
+	findVideoByRestrictedCountryAndSubCategory(country: String!, videoCategoryId: Int!): [Video]!
 	countVideos: Int!
 	videoById(id:ID!):Video 
 }
 
 extend type Mutation {
-	createVideo(categoryId: Int!, authorId: Int!, videoRatingId: Int!, status: Int!, name: String!, description: String!, short_description: String!, thumbnail: String!): Video!
-	updateVideo(id: Int!, categoryId: Int!, authorId: Int!, videoRatingId: Int!, status: Int!, name: String!, description: String!, short_description: String!, thumbnail: String!): Video!
+	createVideo(categoryId: Int!, authorId: Int!, videoRatingId: Int!, status: Int!, name: String!, description: String!, short_description: String!, thumbnail: String!, video_short_url: String!, banner: String!, reviewsRating: String!): Video!
+	updateVideo(id: Int!, categoryId: Int!, authorId: Int!, videoRatingId: Int!, status: Int!, name: String!, description: String!, short_description: String!, thumbnail: String!, video_short_url: String!, banner: String!, reviewsRating: String!, videoMetaId: Int): Video!
+	addVideoMetaToVideo(id: Int!, videoMetaId: Int!): Video!
 	softDeleteVideoById(id: Int!): Video!
 	setActiveVideoById(id: Int!): Video!
 }

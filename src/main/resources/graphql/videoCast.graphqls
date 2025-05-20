@@ -1,13 +1,14 @@
 type VideoCast {
 	id: ID!
 	status: Int
-	video_id: Int!
+	videoId: Int!
 	cast: Cast
 }
 
 extend type Query {
 	countVideoCasts: Int!
 	videoCastById(id:ID!):VideoCast
+	videoCastByVideoId(videoId: ID!):[VideoCast]
 	findAllVideoCasts: [VideoCast]
 }
 

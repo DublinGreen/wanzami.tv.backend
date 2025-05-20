@@ -31,7 +31,7 @@ public class Category {
 	}
 
 	public Category(Long id) {
-		this.id = id;
+		this.setId(id);
 	}
 
 	public Category(String name, Integer status) {
@@ -69,6 +69,14 @@ public class Category {
 
 	public void setCreated_at(Instant created_at) {
 		this.created_at = created_at;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

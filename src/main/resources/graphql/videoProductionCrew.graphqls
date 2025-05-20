@@ -1,0 +1,22 @@
+type VideoProductionCrew {
+	id: ID!
+	status: Int
+	videoId: Int!
+	position: String!
+	name: String!
+}
+
+extend type Query {
+	findAllVideoProductionCrew: [VideoProductionCrew]!
+	countVideoProductionCrew: Int!
+	videoProductionCrewById(id:ID!):VideoProductionCrew
+	videoProductionCrewByVideoId(id:ID!):[VideoProductionCrew]
+}
+
+# Root
+extend type Mutation {
+	createVideoProductionCrew(video_id: Int!, position: String, name: String): VideoProductionCrew!
+	updateVideoProductionCrew(id: Int!, video_id: Int!, position: String, name: String): VideoProductionCrew!
+	softDeleteVideoProductionCrewById(id: Int!): VideoProductionCrew!
+	setActiveVideoProductionCrewById(id: Int!): VideoProductionCrew!
+}

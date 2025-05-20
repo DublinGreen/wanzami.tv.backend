@@ -1,6 +1,5 @@
 package tv.wanzami.query;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
@@ -8,35 +7,31 @@ import org.springframework.stereotype.Component;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.scalars.ExtendedScalars;
 import graphql.schema.GraphQLScalarType;
-import tv.wanzami.model.VideoCast;
-import tv.wanzami.repository.VideoCastRepository;
+import tv.wanzami.model.VideoMeta;
+import tv.wanzami.repository.VideoMetaRepository;
 
 @Component
-public class VideoCastQuery implements GraphQLQueryResolver {
+public class VideoMetaQuery implements GraphQLQueryResolver {
 
-	private VideoCastRepository repository;
+	private VideoMetaRepository repository;
 
 	GraphQLScalarType longScalar = ExtendedScalars.newAliasedScalar("Long").aliasedScalar(ExtendedScalars.GraphQLLong)
 			.build();
 
-	public VideoCastQuery(VideoCastRepository repository) {
+	public VideoMetaQuery(VideoMetaRepository repository) {
 		this.repository = repository;
 	}
 
-	public Iterable<VideoCast> findAllVideoCasts() {
+	public Iterable<VideoMeta> findAllVideoMeta() {
 		return repository.findAll();
 	}
 	
-	public long countVideoCasts() {
+	public long countVideoMeta() {
 		return repository.count();
 	}
 
-	public Optional<VideoCast> videoCastById(Long id) {
+	public Optional<VideoMeta> videoMetaById(Long id) {
 		return repository.findById(id);
-	}
-	
-	public List<VideoCast> videoCastByVideoId(Long videoId) {
-		return repository.findVideoCastsByVideoId(videoId);
 	}
 	
 }

@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class Video {
@@ -19,19 +18,19 @@ public class Video {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "category_id", nullable = false, updatable = false)
+	@JoinColumn(name = "category_id", nullable = false, updatable = true)
 	private Category category;
 	
-	@OneToOne
-	@JoinColumn(name = "author_id", nullable = false, updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "author_id", nullable = false, updatable = true)
 	private Author author;
 	
-	@OneToOne
-	@JoinColumn(name = "videoRating_id", nullable = false, updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "videoRating_id", nullable = true, updatable = true)
 	private VideoRating videoRating;
 	
-	@OneToOne
-	@JoinColumn(name = "videoCountryRestriction_id", nullable = true, updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "videoCountryRestriction_id", nullable = true, updatable = true)
 	private VideoCountryRestriction videoCountryRestriction;
 		
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
@@ -52,8 +51,15 @@ public class Video {
 	@Column(nullable = false, unique = false, length = 200)
 	private String banner;
 	
+	@Column(nullable = false, unique = true, length = 200)
+	private String video_short_url;
+	
 	@Column(nullable = false, unique = false, length = 200)
 	private String reviews_rating;
+	
+	@ManyToOne
+	@JoinColumn(name = "videoMeta_id", nullable = true, updatable = true)
+	private VideoMeta videoMeta;
 	
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
@@ -65,7 +71,7 @@ public class Video {
 	}
 
 	public Video(Long id) {
-		this.id = id;
+		this.setId(id);
 	}
 
 	public Video(String name, Integer status) {
@@ -175,6 +181,30 @@ public class Video {
 
 	public void setVideoCountryRestriction(VideoCountryRestriction videoCountryRestriction) {
 		this.videoCountryRestriction = videoCountryRestriction;
+	}
+
+	public String getVideo_short_url() {
+		return video_short_url;
+	}
+
+	public void setVideo_short_url(String video_short_url) {
+		this.video_short_url = video_short_url;
+	}
+
+	public VideoMeta getVideoMeta() {
+		return videoMeta;
+	}
+
+	public void setVideoMeta(VideoMeta videoMeta) {
+		this.videoMeta = videoMeta;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

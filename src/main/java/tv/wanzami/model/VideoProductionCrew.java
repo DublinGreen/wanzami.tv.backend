@@ -5,52 +5,38 @@ import java.time.Instant;
 import jakarta.persistence.*;
 
 @Entity
-public class Cast {
+public class VideoProductionCrew {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 		
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
+			
+	@Column(name = "video_id", nullable = false)
+	private Integer videoId;
 
-	@Column(name = "name", nullable = false,unique = true)
+	@Column(name = "position", nullable = false, unique = false, length = 200)
+	private String position;
+	
+	@Column(name = "name", nullable = false, unique = false, length = 200)
 	private String name;
 	
-	/**
-	 * cast_image_url should be 150px x 150px
-	 */
-	@Column(name = "cast_image_url", nullable = false)
-	private String cast_image_url;
-
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
 	
 	@Column(name = "updated_at", nullable = true)
 	private Instant updated_at;
 	
-	public Cast() {
+	public VideoProductionCrew() {
 	}
 
-	public Cast(Long id) {
+	public VideoProductionCrew(Long id) {
 		this.id = id;
-	}
-
-	public Cast(String name, String cast_image_url) {
-		this.name = name;
-		this.status = 0;
-		this.cast_image_url = cast_image_url;
 	}
 
 	public Long getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Instant getUpdated_at() {
@@ -77,11 +63,28 @@ public class Cast {
 		this.status = status;
 	}
 
-	public String getCast_image_url() {
-		return cast_image_url;
+	public Integer getVideo_id() {
+		return videoId;
 	}
 
-	public void setCast_image_url(String cast_image_url) {
-		this.cast_image_url = cast_image_url;
+	public void setVideo_id(Integer videoId) {
+		this.videoId = videoId;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
 }

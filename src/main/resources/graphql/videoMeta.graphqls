@@ -1,0 +1,20 @@
+type VideoMeta {
+	id: ID!
+	video_length: String!
+	video_quanlity: String!
+	video_url: String!
+	video_trailer_url: String!
+	video: Video
+}
+
+extend type Query {
+	findAllVideoMeta: [VideoMeta]!
+	countVideoMeta: Int!
+	videoMetaById(id:ID!):VideoMeta
+}
+
+# Root
+extend type Mutation {
+	createVideoMeta(video_id: Int!, length: String!, videoQuality: String!, videoUrl: String!, video_trailer_url: String!): VideoMeta!
+	updateVideoMeta(id: Int!, video_id: Int!, length: String!, videoQuality: String!, videoUrl: String!, video_trailer_url: String!): VideoMeta!
+}

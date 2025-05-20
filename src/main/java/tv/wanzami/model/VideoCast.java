@@ -17,7 +17,8 @@ public class VideoCast {
 	@JoinColumn(name = "cast_id", nullable = false, updatable = false)
 	private Cast cast;
 	
-	private Integer video_id;
+	@Column(name = "video_id", nullable = false)
+	private Integer videoId;
 
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
@@ -32,8 +33,8 @@ public class VideoCast {
 		this.id = id;
 	}
 
-	public VideoCast(Integer video_id, Cast cast) {
-		this.video_id = video_id;
+	public VideoCast(Integer videoId, Cast cast) {
+		this.videoId = videoId;
 		this.status = 0;
 		this.cast = cast;
 	}
@@ -67,11 +68,11 @@ public class VideoCast {
 	}
 
 	public Integer getVideo_id() {
-		return video_id;
+		return videoId;
 	}
 
-	public void setVideo_id(Integer video_id) {
-		this.video_id = video_id;
+	public void setVideo_id(Integer videoId) {
+		this.videoId = videoId;
 	}
 
 	public Cast getCast() {

@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import tv.wanzami.model.Author;
 import tv.wanzami.model.Category;
 import tv.wanzami.model.Video;
+import tv.wanzami.model.VideoMeta;
 import tv.wanzami.model.VideoRating;
 import tv.wanzami.repository.VideoRepository;
 
@@ -22,25 +23,43 @@ public class VideoMutation implements GraphQLMutationResolver {
 	}
 
 	public Video createVideo(int categoryId, int authorId, int video_rating, int status, String name, String description,
-			String short_description, String thumbnail) {
+			String short_description, String thumbnail,String video_short_url, String banner, String reviewsRating) {
 		Video video = new Video();
 		video.setCategory(new Category((long) categoryId));
 		video.setAuthor(new Author((long) authorId));
-		video.setVideoRating(new VideoRating((long) video_rating));		
+		video.setVideoRating(new VideoRating((long) video_rating));
+		video.setVideo_short_url(video_short_url);
 		video.setStatus(0);
 		video.setName(name);
 		video.setDescription(description);
 		video.setShort_description(short_description);
+		video.setBanner(banner);
 		video.setThumbnail(thumbnail);
+		video.setReviews_rating(reviewsRating);
 		video.setCreated_at(new Date().toInstant());
-
 		videoRespository.save(video);
 
 		return video;
 	}
+	
+	public Video addVideoMetaToVideo(Long id, int videoMetaId) {
+		Optional<Video> optVideo = videoRespository.findById(id);
+
+		if (optVideo.isPresent()) {
+			Video video = optVideo.get();
+
+			if (videoMetaId != 0)
+				video.setVideoMeta(new VideoMeta((long) videoMetaId));
+			
+			videoRespository.save(video);
+			return video;
+		}
+
+		throw new EntityNotFoundException("Not found User to update!");
+	}
 
 	public Video updateVideo(Long id, int categoryId, int authorId, int video_rating,  int status, String name, String description,
-			String short_description, String thumbnail) throws EntityNotFoundException {
+			String short_description, String thumbnail, String video_short_url, String banner, String reviewsRating, int videoMetaId) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
 
 		if (optVideo.isPresent()) {
@@ -66,14 +85,26 @@ public class VideoMutation implements GraphQLMutationResolver {
 
 			if (thumbnail != null)
 				video.setThumbnail(thumbnail);
-
+			
+			if (video_short_url != null)
+				video.setVideo_short_url(video_short_url);
+			
+			if (banner != null)
+				video.setBanner(banner);
+			
+			if (reviewsRating != null)
+				video.setReviews_rating(reviewsRating);
+			
+			if (videoMetaId != 0)
+				video.setVideoMeta(new VideoMeta((long) videoMetaId));
+			
 			videoRespository.save(video);
 			return video;
 		}
 
 		throw new EntityNotFoundException("Not found User to update!");
 	}
-
+	
 	public Video softDeleteVideoById(Long id) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
 
