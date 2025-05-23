@@ -68,7 +68,7 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    List<VideoCountryRestriction> restrictions = videoCountryRestrictionRepository.findAll();
 	    Set<Long> restrictedVideoIds = new HashSet<>();
 	    for (VideoCountryRestriction restriction : restrictions) {
-	        if (restriction.getCountry().getId() == countryId) {
+	        if (restriction.getCountry().getId() == countryId && restriction.getStatus() == 1) {
 	            restrictedVideoIds.add(restriction.getVideo().getId());
 	        }
 	    }
@@ -112,7 +112,7 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    List<VideoCountryRestriction> restrictions = videoCountryRestrictionRepository.findAll();
 	    Set<Long> restrictedVideoIds = new HashSet<>();
 	    for (VideoCountryRestriction restriction : restrictions) {
-	        if (restriction.getCountry().getId() == countryId) {
+	        if (restriction.getCountry().getId() == countryId && restriction.getStatus() == 1) {
 	            restrictedVideoIds.add(restriction.getVideo().getId());
 	        }
 	    }
@@ -163,7 +163,7 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    List<VideoCountryRestriction> restrictions = videoCountryRestrictionRepository.findAll();
 	    Set<Long> restrictedVideoIds = new HashSet<>();
 	    for (VideoCountryRestriction restriction : restrictions) {
-	        if (restriction.getCountry().getId() == countryId) {
+	        if (restriction.getCountry().getId() == countryId && restriction.getStatus() == 1) {
 	            restrictedVideoIds.add(restriction.getVideo().getId());
 	        }
 	    }
@@ -208,7 +208,7 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    List<VideoCountryRestriction> restrictions = videoCountryRestrictionRepository.findAll();
 	    Set<Long> restrictedVideoIds = new HashSet<>();
 	    for (VideoCountryRestriction restriction : restrictions) {
-	        if (restriction.getCountry().getId() == countryId) {
+	        if (restriction.getCountry().getId() == countryId && restriction.getStatus() == 1) {
 	            restrictedVideoIds.add(restriction.getVideo().getId());
 	        }
 	    }

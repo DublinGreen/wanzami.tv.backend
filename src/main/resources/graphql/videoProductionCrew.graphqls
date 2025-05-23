@@ -11,6 +11,7 @@ extend type Query {
 	countVideoProductionCrew: Int!
 	videoProductionCrewById(id:ID!):VideoProductionCrew
 	videoProductionCrewByVideoId(id:ID!):[VideoProductionCrew]
+	videoProductionCrewByVideoIdAndStatus(id:ID!, status: Int!):[VideoProductionCrew]
 }
 
 # Root

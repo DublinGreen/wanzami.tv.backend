@@ -39,4 +39,8 @@ public class VideoProductionCrewQuery implements GraphQLQueryResolver {
 		return repository.findProductionCrewByVideoId(videoId);
 	}
 	
+	public List<VideoProductionCrew> videoProductionCrewByVideoIdAndStatus(Long videoId, int status) {
+		return repository.findByVideoIdAndStatus(videoId, status);
+	}
+		
 }

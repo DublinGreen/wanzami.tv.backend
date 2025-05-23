@@ -12,4 +12,6 @@ public interface VideoProductionCrewRepository extends JpaRepository<VideoProduc
 	
 	@Query("SELECT vc FROM VideoProductionCrew vc WHERE vc.videoId = :videoId")
 	List<VideoProductionCrew> findProductionCrewByVideoId(@Param("videoId") Long videoId);
+	
+	List<VideoProductionCrew> findByVideoIdAndStatus(Long videoId, Integer status);
 }
