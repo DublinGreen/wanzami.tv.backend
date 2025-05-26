@@ -26,7 +26,7 @@ public class VideoMeta {
 	
 	@Column(nullable = false, length = 200)
 	private String video_quanlity;
-	
+		
 	@Column(nullable = false, unique = true, length = 200)
 	private String video_url;
 	

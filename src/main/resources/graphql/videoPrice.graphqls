@@ -1,0 +1,21 @@
+type VideoPrice {
+	id: ID!
+	status: Int
+	videoId: Int!
+	price: Price
+}
+
+extend type Query {
+	countVideoPrice: Int!
+	videoPriceById(id:ID!):VideoPrice
+	videoPriceByVideoId(videoId: ID!):[VideoPrice]
+	findAllVideoPrices: [VideoPrice]
+}
+
+# Root
+extend type Mutation {
+	createVideoPrice(video_id: Int!, price_id: Int!): VideoPrice!
+	updateVideoPrice(id: Int!, video_id: Int!, price_id: Int!): VideoPrice!
+	softDeleteVideoPriceById(id: Int!): VideoPrice!
+	setActiveVideoPriceById(id: Int!): VideoPrice!
+}

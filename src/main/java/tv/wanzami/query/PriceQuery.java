@@ -7,35 +7,30 @@ import org.springframework.stereotype.Component;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import graphql.scalars.ExtendedScalars;
 import graphql.schema.GraphQLScalarType;
-import tv.wanzami.model.Slider;
-import tv.wanzami.repository.SliderRepository;
-
+import tv.wanzami.model.Price;
+import tv.wanzami.repository.PriceRepository;
 
 @Component
-public class SliderQuery implements GraphQLQueryResolver {
+public class PriceQuery implements GraphQLQueryResolver {
 
-	private SliderRepository repository;
+	private PriceRepository repository;
 
 	GraphQLScalarType longScalar = ExtendedScalars.newAliasedScalar("Long").aliasedScalar(ExtendedScalars.GraphQLLong)
 			.build();
 
-	public SliderQuery(SliderRepository repository) {
+	public PriceQuery(PriceRepository repository) {
 		this.repository = repository;
 	}
 
-	public Iterable<Slider> findAllSliders() {
+	public Iterable<Price> findAllPrices() {
 		return repository.findAll();
 	}
-	
-	public Iterable<Slider> findAllActiveSliders() {
-		return repository.findByStatus(1);
-	}
 
-	public long countSlider() {
+	public long countPrice() {
 		return repository.count();
 	}
 
-	public Optional<Slider> sliderById(Long id) {
+	public Optional<Price> priceById(Long id) {
 		return repository.findById(id);
 	}
 	

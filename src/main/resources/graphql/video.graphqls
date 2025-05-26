@@ -22,6 +22,7 @@ extend type Query {
 	findVideoByRestrictedCountryAndSubCategory(country: String!, videoCategoryId: Int!): [Video]!
 	countVideos: Int!
 	videoById(id:ID!):Video 
+	verifyPayment(reference: String!): String!
 }
 
 extend type Mutation {

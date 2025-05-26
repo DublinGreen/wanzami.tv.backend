@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -71,41 +69,62 @@ public class S3Query implements GraphQLQueryResolver {
     }
 
     public String generatePresignedGetUrl(String fileName) {
-        try (S3Presigner presigner = getPresigner()) {
-            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(fileName)
-                    .build();
-
-            GetObjectPresignRequest getPresignRequest = GetObjectPresignRequest.builder()
-                    .getObjectRequest(getObjectRequest)
-                    .signatureDuration(Duration.ofMinutes(90)) // Set expiry
-                    .build();
-
-            URL presignedUrl = presigner.presignGetObject(getPresignRequest).url();
-            return presignedUrl.toString();
-        }
-    }
-
+	    try (S3Presigner presigner = S3Presigner.builder()
+	            .region(Region.EU_NORTH_1) // Make sure your bucket is in this region!
+	            .credentialsProvider(StaticCredentialsProvider.create(
+	                    AwsBasicCredentials.create(
+	                        awsCredentialsConfig.getAccessKeyId(),
+	                        awsCredentialsConfig.getSecretAccessKey()
+	                    )
+	            ))
+	            .build()) {
+	
+	        // 1. Build the GetObjectRequest with proper bucket/key
+	        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+	                .bucket(bucketName) // e.g., "wanzami.tv.bucket"
+	                .key(fileName)      // e.g., "test.jpg" or "folder/test.jpg"
+	                .responseContentDisposition("attachment; filename=\"" + fileName + "\"")
+	                .build();
+	
+	        // 2. Build the presign request
+	        GetObjectPresignRequest getPresignRequest = GetObjectPresignRequest.builder()
+	                .signatureDuration(Duration.ofMinutes(1440))
+	                .getObjectRequest(getObjectRequest)
+	                .build();
+	
+	        // 3. Generate the URL
+	        URL presignedUrl = presigner.presignGetObject(getPresignRequest).url();
+	
+	        System.out.println("✔️ Presigned GET URL generated: " + presignedUrl);
+	        return presignedUrl.toString();
+	
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return "❌ Failed to generate pre-signed URL: " + e.getMessage();
+	    }
+	}
+    
     public List<String> generatePresignedUrlsForFolder(String folderPrefix) {
-    	List<String> urls = new ArrayList<>();
+        List<String> urls = new ArrayList<>();
 
-        try (S3Presigner presigner = getPresigner()) {
-            S3Client s3Client =  (S3Client) S3Presigner.builder()
-                    .region(Region.EU_NORTH_1) // Change to your AWS region
-                  .credentialsProvider(ProfileCredentialsProvider.create())
-                  .credentialsProvider(DefaultCredentialsProvider.create())
-                  .credentialsProvider(StaticCredentialsProvider.create(
-                          AwsBasicCredentials.create(awsCredentialsConfig.getAccessKeyId(), awsCredentialsConfig.getSecretAccessKey())
-                      ))
-//                  .credentialsProvider(StaticCredentialsProvider.create(
-//                          AwsBasicCredentials.create(awsCredentialsConfig.getAccessKeyId(), awsCredentialsConfig.getSecretAccessKey())
-//                      ))// READ ONLY ACCESS
-                  .build();
+        try (
+            S3Presigner presigner = getPresigner();
+            S3Client s3Client = S3Client.builder()
+                .region(Region.EU_NORTH_1)
+                .credentialsProvider(StaticCredentialsProvider.create(
+                    AwsBasicCredentials.create(
+                        awsCredentialsConfig.getAccessKeyId(),
+                        awsCredentialsConfig.getSecretAccessKey()
+                    )
+                ))
+                .build()
+        ) {
+            // Ensure folder prefix ends with a slash
+            String prefix = folderPrefix.endsWith("/") ? folderPrefix : folderPrefix + "/";
 
             ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
                     .bucket(bucketName)
-                    .prefix(folderPrefix.endsWith("/") ? folderPrefix : folderPrefix + "/")
+                    .prefix(prefix)
                     .build();
 
             ListObjectsV2Response listResponse = s3Client.listObjectsV2(listRequest);
@@ -116,6 +135,8 @@ public class S3Query implements GraphQLQueryResolver {
                 GetObjectRequest getObjectRequest = GetObjectRequest.builder()
                         .bucket(bucketName)
                         .key(key)
+                        // Optional: Add content disposition for download behavior
+                        .responseContentDisposition("attachment; filename=\"" + key.substring(key.lastIndexOf('/') + 1) + "\"")
                         .build();
 
                 GetObjectPresignRequest getPresignRequest = GetObjectPresignRequest.builder()
@@ -126,10 +147,9 @@ public class S3Query implements GraphQLQueryResolver {
                 URL presignedUrl = presigner.presignGetObject(getPresignRequest).url();
                 urls.add(presignedUrl.toString());
             }
-
-            s3Client.close();
         }
 
         return urls;
     }
+
 }

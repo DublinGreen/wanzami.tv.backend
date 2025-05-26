@@ -9,10 +9,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import tv.wanzami.enums.Gender;
+import tv.wanzami.enums.Currency;
 
 @Entity
-public class Cast {
+public class Price {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -20,45 +20,28 @@ public class Cast {
 	@Column(name = "status", nullable = false, columnDefinition = "int(11) not null default 0")
 	private Integer status;
 
-	@Column(name = "name", nullable = false,unique = true)
-	private String name;
+	@Column(name = "price", nullable = false,unique = false)
+	private String price;
 	
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender", nullable = false)
-    private Gender gender;
+    @Column(name = "currency", nullable = false)
+    private Currency currency;
     
-	@Column(name = "cast_image_url", nullable = false)
-	private String cast_image_url;
-
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
 	
 	@Column(name = "updated_at", nullable = true)
 	private Instant updated_at;
 	
-	public Cast() {
+	public Price() {
 	}
 
-	public Cast(Long id) {
+	public Price(Long id) {
 		this.id = id;
-	}
-
-	public Cast(String name, String cast_image_url) {
-		this.name = name;
-		this.status = 0;
-		this.cast_image_url = cast_image_url;
 	}
 
 	public Long getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Instant getUpdated_at() {
@@ -85,19 +68,19 @@ public class Cast {
 		this.status = status;
 	}
 
-	public String getCast_image_url() {
-		return cast_image_url;
+	public String getPrice() {
+		return price;
 	}
 
-	public void setCast_image_url(String cast_image_url) {
-		this.cast_image_url = cast_image_url;
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
-	public Gender getGender() {
-		return gender;
+	public Currency getCurrency() {
+		return currency;
 	}
 
-	public void setGender(String gender) {
-		this.gender = Gender.valueOf(gender);
+	public void setCurrency(String currency) {
+		this.currency = Currency.valueOf(currency);
 	}
 }

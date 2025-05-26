@@ -8,6 +8,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -23,10 +26,14 @@ import tv.wanzami.repository.CountryRepository;
 import tv.wanzami.repository.VideoCategoryRepository;
 import tv.wanzami.repository.VideoCountryRestrictionRepository;
 import tv.wanzami.repository.VideoRepository;
+import tv.wanzami.service.PaystackService;
 
 @Component
 public class VideoQuery implements GraphQLQueryResolver {
 
+    @Autowired
+    private PaystackService paystackService;
+    
 	private VideoRepository videoRepository;
 	private VideoCountryRestrictionRepository videoCountryRestrictionRepository;
 	private CountryRepository countryRepository;
@@ -249,5 +256,13 @@ public class VideoQuery implements GraphQLQueryResolver {
 	public Optional<Video> videoById(Long id) {
 		return videoRepository.findById(id);
 	}
+	
+    public String verifyPayment(String reference) throws JSONException {
+    	String returnJsonString = paystackService.verifyPayment(reference);
+    	
+    	JSONObject json = new JSONObject(returnJsonString);
+
+        return json.toString();
+    } 
 
 }

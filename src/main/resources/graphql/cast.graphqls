@@ -3,6 +3,7 @@ type Cast {
 	status: Int
 	cast_image_url: String!
 	name: String!
+	gender: String!
 }
 
 extend type Query {
@@ -12,8 +13,8 @@ extend type Query {
 
 # Root
 extend type Mutation {
-	createCast(name: String!, cast_image_url: String!): Cast!
-	updateCast(id: Int!, name: String!, cast_image_url: String!): Cast!
+	createCast(name: String!, cast_image_url: String!, gender: String!): Cast!
+	updateCast(id: Int!, name: String!, cast_image_url: String!, gender: String!): Cast!
 	softDeleteCastById(id: Int!): Cast!
 	setActiveCastById(id: Int!): Cast!
 }

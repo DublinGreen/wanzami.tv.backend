@@ -1,0 +1,20 @@
+type Price {
+	id: ID!
+	status: Int
+	price: String!
+	currency: String!
+}
+
+extend type Query {
+	findAllPrices: [Price]
+	countPrice: Int!
+	priceById(id:ID!):Price
+}
+
+# Root
+extend type Mutation {
+	createPrice(currency: String!, amount: String!): Price!
+	updatePrice(id: Int!, currency: String!, amount: String!): Price!
+	softDeletePriceById(id: Int!): Price!
+	setActivePriceById(id: Int!): Price!
+}

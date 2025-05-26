@@ -15,6 +15,7 @@ extend type Query {
 	countSlider: Int!
 	sliderById(id:ID!):Slider
 	findAllSliders: [Slider]
+	findAllActiveSliders: [Slider]
 }
 
 # Root
