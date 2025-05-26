@@ -1,0 +1,22 @@
+type VideoPayment {
+	id: ID!
+	video_id: Int!
+	email: String!
+	reference: String!
+	amount: String!
+	currency: String!
+	transaction_status: String!
+}
+
+extend type Query {
+	countVideoPayments: Int!
+	videoPaymentById(id:ID!):VideoPayment
+	videoPaymentByVideoId(videoId: Int!):[VideoPayment]
+	videoPaymentByEmail(email: String!):[VideoPayment]
+	findAllVideoPayment: [VideoPayment]
+}
+
+# Root
+extend type Mutation {
+	createVideoPayment(video_id: Int!, email: String!, reference: String!, amount: String!, currency: String!, transaction_status: String!): VideoPayment!
+}
