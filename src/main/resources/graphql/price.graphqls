@@ -1,5 +1,6 @@
 type Price {
 	id: ID!
+	country: Country!
 	status: Int
 	price: String!
 	currency: String!
@@ -13,8 +14,8 @@ extend type Query {
 
 # Root
 extend type Mutation {
-	createPrice(currency: String!, amount: String!): Price!
-	updatePrice(id: Int!, currency: String!, amount: String!): Price!
+	createPrice(currency: String!, amount: String!, country_id: Int): Price!
+	updatePrice(id: Int!, currency: String!, amount: String!, country_id: Int): Price!
 	softDeletePriceById(id: Int!): Price!
 	setActivePriceById(id: Int!): Price!
 }

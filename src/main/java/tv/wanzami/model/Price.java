@@ -9,6 +9,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import tv.wanzami.enums.Currency;
 
 @Entity
@@ -26,6 +28,10 @@ public class Price {
     @Enumerated(EnumType.STRING)
     @Column(name = "currency", nullable = false)
     private Currency currency;
+    
+	@ManyToOne
+	@JoinColumn(name = "country_id", nullable = true, updatable = false)
+	private Country country;
     
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
@@ -82,5 +88,13 @@ public class Price {
 
 	public void setCurrency(String currency) {
 		this.currency = Currency.valueOf(currency);
+	}
+
+	public Country getCountry() {
+		return country;
+	}
+
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 }

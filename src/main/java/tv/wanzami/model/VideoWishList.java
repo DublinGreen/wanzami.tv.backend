@@ -5,7 +5,7 @@ import java.time.Instant;
 import jakarta.persistence.*;
 
 @Entity
-public class WishList {
+public class VideoWishList {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -27,10 +27,10 @@ public class WishList {
 	@Column(name = "updated_at", nullable = true)
 	private Instant updated_at;
 
-	public WishList() {
+	public VideoWishList() {
 	}
 	
-	public WishList(Long id) {
+	public VideoWishList(Long id) {
 		this.id = id;
 	}
 

@@ -23,6 +23,7 @@ extend type Query {
 	countVideos: Int!
 	videoById(id:ID!):Video 
 	verifyPayment(reference: String!): String!
+	videosByIds(ids: [Int!]!): [Video!]!
 }
 
 extend type Mutation {

@@ -6,6 +6,7 @@ type VideoPayment {
 	amount: String!
 	currency: String!
 	transaction_status: String!
+	channel: String!
 }
 
 extend type Query {
@@ -18,5 +19,5 @@ extend type Query {
 
 # Root
 extend type Mutation {
-	createVideoPayment(video_id: Int!, email: String!, reference: String!, amount: String!, currency: String!, transaction_status: String!): VideoPayment!
+	createVideoPayment(video_id: Int!, email: String!, reference: String!, amount: String!, currency: String!, transaction_status: String!, channel: String!): VideoPayment!
 }

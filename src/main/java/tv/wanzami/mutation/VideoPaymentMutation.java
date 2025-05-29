@@ -17,13 +17,14 @@ public class VideoPaymentMutation implements GraphQLMutationResolver {
 		this.repository = repository;
 	}
 	
-	public VideoPayment createVideoPayment(Integer video_id, String email, String reference, String amount, String currency, String transaction_status) {
+	public VideoPayment createVideoPayment(Integer video_id, String email, String reference, String amount, String currency, String transaction_status, String channel) {
 		VideoPayment videoPayment = new VideoPayment();
 		videoPayment.setVideoId(video_id);
 		videoPayment.setEmail(email);
 		videoPayment.setReference(reference);
 		videoPayment.setAmount(amount);
 		videoPayment.setCurrency(currency);
+		videoPayment.setChannel(channel);
 		videoPayment.setTransaction_status(transaction_status);
 		videoPayment.setCreated_at(new Date().toInstant());
 		repository.save(videoPayment);

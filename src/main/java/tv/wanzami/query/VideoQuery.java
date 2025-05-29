@@ -107,17 +107,20 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    // If no valid country is provided, return all videos (optionally filter by name)
 	    if (country == null || countryId == 0) {
 	        List<Video> allVideos = videoRepository.findAll();
+	        
 	        if (videoName != null && !videoName.isEmpty()) {
 	            return allVideos.stream()
 	                .filter(video -> video.getName().toLowerCase().contains(videoName.toLowerCase()))
 	                .collect(Collectors.toList());
 	        }
+	        
 	        return allVideos;
 	    }
 
 	    // Get all restricted video IDs for the given country
 	    List<VideoCountryRestriction> restrictions = videoCountryRestrictionRepository.findAll();
 	    Set<Long> restrictedVideoIds = new HashSet<>();
+	    
 	    for (VideoCountryRestriction restriction : restrictions) {
 	        if (restriction.getCountry().getId() == countryId && restriction.getStatus() == 1) {
 	            restrictedVideoIds.add(restriction.getVideo().getId());
@@ -125,14 +128,17 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    }
 
 	    // Filter by restriction and optionally by name
-	    List<Video> videos = videoRepository.findAll();
+	    List<Video> videos = videoRepository.searchByNameLike(videoName.toLowerCase());
+	    
 	    Iterator<Video> iterator = videos.iterator();
 	    while (iterator.hasNext()) {
 	        Video video = iterator.next();
+	        
 	        if (restrictedVideoIds.contains(video.getId())) {
 	            iterator.remove();
 	            continue;
 	        }
+	        
 	        if (videoName != null && !videoName.isEmpty() &&
 	            !video.getName().toLowerCase().contains(videoName.toLowerCase())) {
 	            iterator.remove();
@@ -248,14 +254,23 @@ public class VideoQuery implements GraphQLQueryResolver {
 
 	}
 
-	
 	public long countVideos() {
 		return videoRepository.count();
 	}
-
+	
 	public Optional<Video> videoById(Long id) {
 		return videoRepository.findById(id);
 	}
+	
+    public List<Video> videosByIds(List<Integer> ids) {
+    	List<Integer> integerList = ids;
+
+    	List<Long> longList = integerList.stream()
+    	    .map(Integer::longValue)
+    	    .collect(Collectors.toList());
+    	
+        return videoRepository.findAllById(longList);
+    }
 	
     public String verifyPayment(String reference) throws JSONException {
     	String returnJsonString = paystackService.verifyPayment(reference);

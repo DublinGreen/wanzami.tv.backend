@@ -1,0 +1,20 @@
+type UserMeta {
+	id: ID!
+	email: String!
+	gender: String!
+	dayOfBirth: String!
+	monthOfBirth: String!
+}
+
+
+extend type Query {
+	findAllUsersMeta: [UserMeta]!
+	countUsersMeta: Int!
+	userMetaById(id:ID!):UserMeta 
+	userMetaByEmail(email: String!): UserMeta
+}
+
+extend type Mutation {
+	createOrUpdateUserMeta(email: String!, gender: String!, day: String!, month: String!): UserMeta!
+}
+

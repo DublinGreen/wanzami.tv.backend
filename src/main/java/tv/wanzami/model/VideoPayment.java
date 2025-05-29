@@ -27,6 +27,9 @@ public class VideoPayment {
 	
 	@Column(nullable = false)
 	private String transaction_status;
+	
+	@Column(nullable = false)
+	private String channel;
 
 	@Column(name = "created_at", nullable = true)
 	private Instant created_at;
@@ -107,6 +110,14 @@ public class VideoPayment {
 
 	public void setTransaction_status(String transaction_status) {
 		this.transaction_status = transaction_status;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 
 }

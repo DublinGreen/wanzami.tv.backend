@@ -42,5 +42,5 @@ public class VideoPaymentQuery implements GraphQLQueryResolver {
 	public List<VideoPayment> videoPaymentByEmail(String email) {
 		return repository.findVideoPaymentByEmail(email);
 	}
-	
+	 
 }
