@@ -3,6 +3,9 @@ package tv.wanzami.mutation;
 import java.util.Date;
 import java.util.Optional;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Component;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,6 +17,7 @@ import tv.wanzami.model.VideoRating;
 import tv.wanzami.repository.VideoRepository;
 
 @Component
+@CacheConfig(cacheNames = {"videos"})
 public class VideoMutation implements GraphQLMutationResolver {
 
 	private VideoRepository videoRespository;
@@ -22,6 +26,7 @@ public class VideoMutation implements GraphQLMutationResolver {
 		this.videoRespository = videoRespository;
 	}
 
+    @CacheEvict(allEntries = true)  // Clear all cached videos on create
 	public Video createVideo(int categoryId, int authorId, int video_rating, int status, String name, String description,
 			String short_description, String thumbnail,String video_short_url, String banner, String reviewsRating) {
 		Video video = new Video();
@@ -42,6 +47,7 @@ public class VideoMutation implements GraphQLMutationResolver {
 		return video;
 	}
 	
+    @CachePut(key = "#id")  // Update cache entry when adding video meta
 	public Video addVideoMetaToVideo(Long id, int videoMetaId) {
 		Optional<Video> optVideo = videoRespository.findById(id);
 
@@ -58,6 +64,7 @@ public class VideoMutation implements GraphQLMutationResolver {
 		throw new EntityNotFoundException("Not found User to update!");
 	}
 
+    @CachePut(key = "#id") // Update cache entry for this video ID on update
 	public Video updateVideo(Long id, int categoryId, int authorId, int video_rating,  int status, String name, String description,
 			String short_description, String thumbnail, String video_short_url, String banner, String reviewsRating, int videoMetaId) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
@@ -105,6 +112,7 @@ public class VideoMutation implements GraphQLMutationResolver {
 		throw new EntityNotFoundException("Not found User to update!");
 	}
 	
+    @CacheEvict(key = "#id")  // Evict this video's cache on soft delete
 	public Video softDeleteVideoById(Long id) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
 
@@ -120,6 +128,7 @@ public class VideoMutation implements GraphQLMutationResolver {
 		throw new EntityNotFoundException("Not found Video to update!");
 	}
 
+    @CacheEvict(key = "#id") // Evict this video's cache on set active
 	public Video setActiveVideoById(Long id) throws EntityNotFoundException {
 		Optional<Video> optVideo = videoRespository.findById(id);
 

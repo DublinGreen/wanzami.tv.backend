@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import graphql.kickstart.tools.GraphQLQueryResolver;
@@ -51,10 +52,12 @@ public class VideoQuery implements GraphQLQueryResolver {
 		this.videoCategoryRepository = videoCategoryRepository;
 	}
 
+	@Cacheable("allVideos")
 	public Iterable<Video> findAllVideos() {
 		return videoRepository.findAll();
 	}
 	
+	@Cacheable(value = "videosByRestrictedCountry", key = "#country")
 	public Iterable<Video> findAllVideoByRestrictedCountry(String country) {		
 	    long countryId = 0;
 
@@ -93,6 +96,7 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    return videos; // List implements Iterable
 	}
 	
+	@Cacheable(value = "searchVideosByRestrictedCountry", key = "T(java.util.Objects).hash(#country, #videoName)")
 	public Iterable<Video> searchVideoByRestrictedCountry(String country, String videoName) {		
 	    long countryId = 0;
 
@@ -148,6 +152,7 @@ public class VideoQuery implements GraphQLQueryResolver {
 	    return videos;
 	}
 
+	@Cacheable(value = "videosByCountryAndCategory", key = "T(java.util.Objects).hash(#country, #categoryId)")
 	public Iterable<Video> findVideoByRestrictedCountryAndCategory(String country, long categoryId) {		
 	    long countryId = 0;
 	    long returnCategoryId = 0;
@@ -195,6 +200,7 @@ public class VideoQuery implements GraphQLQueryResolver {
 
 	}
 
+	@Cacheable(value = "videosByCountryAndSubCategory", key = "T(java.util.Objects).hash(#country, #videoCategoryId)")
 	public Iterable<Video> findVideoByRestrictedCountryAndSubCategory(String country, long videoCategoryId) {		
 	    long countryId = 0;
 	    List<Video> returnVideos = new ArrayList<>();
@@ -254,14 +260,17 @@ public class VideoQuery implements GraphQLQueryResolver {
 
 	}
 
+	@Cacheable("countVideos")
 	public long countVideos() {
 		return videoRepository.count();
 	}
 	
+	@Cacheable(value = "videoById", key = "#id")
 	public Optional<Video> videoById(Long id) {
 		return videoRepository.findById(id);
 	}
 	
+	@Cacheable(value = "videosByIds", key = "#ids")
     public List<Video> videosByIds(List<Integer> ids) {
     	List<Integer> integerList = ids;
 
