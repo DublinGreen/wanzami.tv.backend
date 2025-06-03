@@ -12,7 +12,6 @@ import tv.wanzami.model.Category;
 import tv.wanzami.repository.CategoryRepository;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class CategoryQuery implements GraphQLQueryResolver {
 
 	private CategoryRepository categoryRepository;

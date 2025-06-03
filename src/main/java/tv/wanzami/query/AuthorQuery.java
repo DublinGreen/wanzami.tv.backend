@@ -12,7 +12,6 @@ import tv.wanzami.model.Author;
 import tv.wanzami.repository.AuthorRepository;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class AuthorQuery implements GraphQLQueryResolver {
 
 	private AuthorRepository authorRepository;

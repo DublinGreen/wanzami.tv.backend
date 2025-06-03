@@ -15,7 +15,6 @@ import tv.wanzami.repository.PermissionRepository;
  * Permisson Mutation
  */
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class PermissonMutation implements GraphQLMutationResolver {
 
 	private PermissionRepository permissionRepository;

@@ -8,7 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.cache.annotation.Cacheable;
@@ -32,9 +31,7 @@ import tv.wanzami.service.PaystackService;
 @Component
 public class VideoQuery implements GraphQLQueryResolver {
 
-    @Autowired
-    private PaystackService paystackService;
-    
+    private PaystackService paystackService;    
 	private VideoRepository videoRepository;
 	private VideoCountryRestrictionRepository videoCountryRestrictionRepository;
 	private CountryRepository countryRepository;
@@ -44,12 +41,13 @@ public class VideoQuery implements GraphQLQueryResolver {
 	GraphQLScalarType longScalar = ExtendedScalars.newAliasedScalar("Long").aliasedScalar(ExtendedScalars.GraphQLLong)
 			.build();
 
-	public VideoQuery(VideoRepository videoRepository,VideoCountryRestrictionRepository videoCountryRestrictionRepository, CountryRepository countryRepository, CategoryRepository categoryRepository, VideoCategoryRepository videoCategoryRepository) {
+	public VideoQuery(VideoRepository videoRepository,VideoCountryRestrictionRepository videoCountryRestrictionRepository, CountryRepository countryRepository, CategoryRepository categoryRepository, VideoCategoryRepository videoCategoryRepository, PaystackService paystackService) {
 		this.videoRepository = videoRepository;
 		this.videoCountryRestrictionRepository = videoCountryRestrictionRepository;
 		this.countryRepository = countryRepository;
 		this.categoryRepository = categoryRepository;
 		this.videoCategoryRepository = videoCategoryRepository;
+		this.paystackService = paystackService;  // <-- added injection here
 	}
 
 	@Cacheable("allVideos")

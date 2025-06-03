@@ -12,7 +12,6 @@ import tv.wanzami.model.Profile;
 import tv.wanzami.repository.ProfileRepository;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class ProfileQuery implements GraphQLQueryResolver {
 
 	private ProfileRepository profileRepository;

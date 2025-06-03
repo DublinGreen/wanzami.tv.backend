@@ -12,7 +12,6 @@ import tv.wanzami.model.User;
 import tv.wanzami.repository.ProfileRepository;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class ProfileMutation implements GraphQLMutationResolver {
 
 	private ProfileRepository profileRepository;

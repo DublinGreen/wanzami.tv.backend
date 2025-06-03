@@ -13,7 +13,6 @@ import tv.wanzami.model.Country;
 import tv.wanzami.repository.AuthorRepository;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class AuthorMutation implements GraphQLMutationResolver {
 
 	private AuthorRepository authorRepository;

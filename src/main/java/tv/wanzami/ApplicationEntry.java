@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 @ComponentScan(basePackages = "tv.wanzami")
 @SpringBootApplication
-@EnableCaching
+//@EnableCaching
 public class ApplicationEntry {
 	
 	/**

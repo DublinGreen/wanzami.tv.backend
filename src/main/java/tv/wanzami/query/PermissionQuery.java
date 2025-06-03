@@ -15,7 +15,6 @@ import tv.wanzami.repository.PermissionRepository;
  * Permission Query
  */
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class PermissionQuery implements GraphQLQueryResolver {
 
 	private PermissionRepository permissionRepository;
