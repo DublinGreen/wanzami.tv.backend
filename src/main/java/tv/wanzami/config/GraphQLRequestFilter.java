@@ -29,7 +29,6 @@ public class GraphQLRequestFilter extends OncePerRequestFilter {
 			String authHeader = request.getHeader("Authorization");
 
 			if (authHeader == null || !isValidToken(authHeader)) {
-				System.out.println("FUCKER");
 				System.out.println(request.getHeaders(authHeader));
 				System.out.println(authHeader);
 				throw new RuntimeException("Unauthorized");
