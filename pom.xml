@@ -10,11 +10,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.bezkoder</groupId>
-    <artifactId>spring-boot-graphql-mysql</artifactId>
+    <groupId>tv.wanzami.api</groupId>
+    <artifactId>tv.wanzami.api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-graphql-mysql</name>
-    <description>wazami project for Spring Boot GraphQL server with MySQL database</description>
+    <name>tv.wanzami.api</name>
+    <description>wanzami api backend service</description>
 
     <properties>
         <java.version>17</java.version>

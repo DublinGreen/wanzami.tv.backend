@@ -32,6 +32,9 @@ public class UserQuery implements GraphQLQueryResolver {
 	}
 
 	public long countUsers() throws Exception {
+//		Sort sort = Sort.by(Sort.Direction.fromString("desc"), "id");
+//		Iterable<User> temp = userRepository.findAll(sort);
+		System.out.println("Testing");
 		return userRepository.count();
 	}
 

@@ -9,7 +9,6 @@ type User {
 	role: String!
 }
 
-
 type Query {
 	findAllUsers: [User]!
 	findAllActiveUsers: [User]!
