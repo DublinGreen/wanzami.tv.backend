@@ -25,6 +25,18 @@ public class GraphQLRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
+		
+		response.setHeader("Access-Control-Allow-Origin", "https://main.d1m8vpcvr1g12z.amplifyapp.com");
+		response.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+		response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+		response.setHeader("Access-Control-Allow-Credentials", "true");
+		
+	    // Allow preflight CORS requests through
+	    if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+	        response.setStatus(HttpServletResponse.SC_OK);
+	        return;
+	    }
+	    		
 		if (request.getRequestURI().equals("/graphql")) {
 			String authHeader = request.getHeader("Authorization");
 
