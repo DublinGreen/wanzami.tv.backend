@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,7 +13,6 @@ import tv.wanzami.model.User;
 import tv.wanzami.repository.UserRepository;
 
 @Component
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserMutation implements GraphQLMutationResolver {
 
 	private UserRepository userRespository;
@@ -23,7 +21,7 @@ public class UserMutation implements GraphQLMutationResolver {
 		this.userRespository = userRespository;
 	}
 
-	public User createUser(String firstName, String lastName, String email, String password, String telephone, String role) {
+	public User createUser(String firstName, String lastName, String email, String password, String role) {
 		User user = new User();
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
@@ -33,7 +31,6 @@ public class UserMutation implements GraphQLMutationResolver {
 		user.setPassword(passwordEncoder.encode());
 		
 		user.setStatus(0);
-		user.setTelephone(telephone);
 		user.setCreated_at(new Date().toInstant());
 
 		if (role != null && 
@@ -46,7 +43,7 @@ public class UserMutation implements GraphQLMutationResolver {
 		return user;
 	}
 
-	public User updateUser(Long id, String firstName, String lastName, String email, String password, String telephone) throws EntityNotFoundException {
+	public User updateUser(Long id, String firstName, String lastName, String email, String password) throws EntityNotFoundException {
 		Optional<User> optUser = userRespository.findById(id);
 
 		if (optUser.isPresent()) {
@@ -66,9 +63,6 @@ public class UserMutation implements GraphQLMutationResolver {
 				user.setPassword(passwordEncoder.encode());	
 			}
 			
-			if (telephone != null)
-				user.setTelephone(telephone);
-
 			user.setUpdated_at(new Date().toInstant());
 
 			userRespository.save(user);

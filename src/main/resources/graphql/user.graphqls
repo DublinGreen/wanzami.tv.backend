@@ -4,7 +4,6 @@ type User {
 	firstName: String!
 	lastName: String!
 	email: String!
-	telephone: String!
 	password: String
 	role: String!
 }
@@ -18,8 +17,8 @@ type Query {
 }
 
 type Mutation {
-	createUser(firstName: String!, lastName: String!, email: String!, password: String!, telephone: String!, role: String): User!
-	updateUser(id: Int!, firstName: String!, lastName: String!, email: String!, telephone: String!,password: String): User!
+	createUser(firstName: String!, lastName: String!, email: String!, password: String!, role: String): User!
+	updateUser(id: Int!, firstName: String!, lastName: String!, email: String!,password: String): User!
 	softDeleteUserById(id: Int!): User!
 	setActiveUserById(id: Int!): User!
 }

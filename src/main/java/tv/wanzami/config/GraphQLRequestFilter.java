@@ -25,11 +25,10 @@ public class GraphQLRequestFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		if (request.getRequestURI().equals("/graphql")) {
+		if (request.getRequestURI().equals("/graphql") && !"OPTIONS".equalsIgnoreCase(request.getMethod())) {
 			String authHeader = request.getHeader("Authorization");
 
 			if (authHeader == null || !isValidToken(authHeader)) {
-				System.out.println("FUCKER");
 				System.out.println(request.getHeaders(authHeader));
 				System.out.println(authHeader);
 				throw new RuntimeException("Unauthorized");

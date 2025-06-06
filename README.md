@@ -1,39 +1,62 @@
-# Spring Boot + GraphQL + MySQL example
-
-For more detail, please visit:
-> [Spring Boot + GraphQL + MySQL example](https://bezkoder.com/spring-boot-graphql-mysql-jpa/)
+# Spring Boot + GraphQL + MySQL (Wazami tv api)
+Wanzami tv backend api service to handle login and registration of new users. Using Apollo client (). Java doc has been generated and unit test
 
 ## Run Spring Boot application
 ```
 mvn spring-boot:run
+
 ```
 
-More Practice:
-> [Spring Boot and Swagger 3 example](https://www.bezkoder.com/spring-boot-swagger-3/)
+# email confirmation and password reset url
+You need to change the base url for email confirmation and password reset
+Check UserMutation.java and MailRunner.java
 
-> [Spring Boot Redis Cache example](https://www.bezkoder.com/spring-boot-redis-cache-example/)
+# convert graphql query to json
+https://datafetcher.com/graphql-json-body-converter
 
-> [Spring Boot File upload example](https://www.bezkoder.com/spring-boot-file-upload/)
+# Add Custom domain to service
+Add a new record to hosted host on aws and create ssl for the custom domain
 
-> [Exception handling: @RestControllerAdvice example in Spring Boot](https://www.bezkoder.com/spring-boot-restcontrolleradvice/)
+Record name
+api.wanzami.tv
 
-> [Spring Boot Repository Unit Test with @DataJpaTest](https://www.bezkoder.com/spring-boot-unit-test-jpa-repo-datajpatest/)
+Record type
+A
 
-> [Spring Boot Rest Controller Unit Test with @WebMvcTest](https://www.bezkoder.com/spring-boot-webmvctest/)
+Value
+[Public IPv4 address]
 
-> [Spring Boot Security & JWT Authentication (MySQL)](https://www.bezkoder.com/spring-boot-jwt-authentication/)
+Alias
+No
 
-> [Spring Boot + GraphQL + MySQL example](https://www.bezkoder.com/spring-boot-graphql-mysql-jpa/)
+TTL (seconds)
+300
 
-> [Spring Boot Rest XML example – Web service with XML Response](https://www.bezkoder.com/spring-boot-rest-xml/)
+Routing policy
+Simple
 
-> [Spring Boot: Upload CSV file data into MySQL Database](https://www.bezkoder.com/spring-boot-upload-csv-file/)
+#install ssl on subdomain aws ec2
+ssh into ec2 install and navigate into app directory [/var/app/current/]
 
-> [Spring Boot: Upload Excel file data into MySQL Database](https://www.bezkoder.com/spring-boot-upload-excel-file-database/)# wanzami.tv.backend
-# wanzami.tv.backend
+```
+sudo yum install -y epel-release
+sudo yum install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d api.wanzami.tv
+```
+Use this to test, if the ssl install was succesful
+curl -v https://api.wanzami.tv
 
-#TODO
-Email Service
-Payment
-Video Module
-Video meta data
+
+#add cors url
+The application using this application, add it to the cors in application.properties and CustomCorsConfig.java files
+
+------------------------------------------
+
+##Use postman or graphiql to inspect and test
+
+## Note, any deployment after, you need to reinstall the ssl
+
+```
+sudo yum install -y certbot python3-certbot-nginx
+sudo certbot --nginx -d api.wanzami.tv
+```

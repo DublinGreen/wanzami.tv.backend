@@ -28,7 +28,7 @@ class WazamiTvAuthApplicationTests {
 //	void testFindAllUsersQuery() throws Exception {
 //		
 //        String query = "{\n"
-//        		+ "  \"query\": \" query FindAllUsers { findAllUsers { id status username email telephone password } }\"\n"
+//        		+ "  \"query\": \" query FindAllUsers { findAllUsers { id status username email password } }\"\n"
 //        		+ "}";
 //
 //		mockMvc.perform(post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(query))
@@ -51,7 +51,7 @@ class WazamiTvAuthApplicationTests {
 //	void testUserByIdQuery() throws Exception {
 //		
 //        String query = "{\n"
-//        		+ "  \"query\": \"query UserById { userById(id: \\\"1\\\") { id status username email telephone password }}\"\n"
+//        		+ "  \"query\": \"query UserById { userById(id: \\\"1\\\") { id status username email password }}\"\n"
 //        		+ "}";
 //
 //		mockMvc.perform(post(BASE_URL).contentType(MediaType.APPLICATION_JSON).content(query))
