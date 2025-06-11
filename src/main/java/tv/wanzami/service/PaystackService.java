@@ -1,5 +1,6 @@
 package tv.wanzami.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -7,7 +8,9 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class PaystackService {
 
-    private final String PAYSTACK_SECRET_KEY = "sk_test_c01819341104a5e68df9577d9d8964085119b165"; // Replace with your secret key
+    @Value("${paystack.liveSecretKey}")
+    private String PAYSTACK_SECRET_KEY;
+    
     private final String PAYSTACK_VERIFY_URL = "https://api.paystack.co/transaction/verify/";
 
     public String verifyPayment(String reference) {
